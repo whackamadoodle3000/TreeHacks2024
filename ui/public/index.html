@@ -90,10 +90,14 @@
         }
 
         function animate() {
-            requestAnimationFrame(animate);
-            angle += 0.01; // Increment the angle to make the spine move in a circle
+            camera.position.set(0, 30, 50); // Move the camera back or adjust as needed
+            camera.fov = 80; // Increase the field of view if necessary
+            camera.updateProjectionMatrix();
 
-            let radius = 30; // Radius of the circle for the circular motion
+            requestAnimationFrame(animate);
+            angle += 0.05; // Increment the angle to make the spine move in a circle
+
+            let radius = 2; // Radius of the circle for the circular motion
             spine.position.x = Math.sin(angle) * radius; // Circular motion on the X-axis
             spine.position.z = Math.cos(angle) * radius; // Circular motion on the Z-axis
 
