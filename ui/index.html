@@ -1,1 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Animation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="spinner">
+        <img src="chair.png" style="width: 100px; height: auto;"> <!-- Chair image -->
+    </div>
 
+    <script>
+        // Simulate loading then redirect
+        setTimeout(() => {
+            window.location.href = "https://the-new-website.com"; // Desired URL
+        }, 10000); // 5 seconds delay
+    </script>
+</body>
+</html>
