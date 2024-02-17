@@ -3,19 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Animation</title>
+    <title>What can your chair do for you?</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Rotating chair loading screen -->
     <div class="spinner">
-        <img src="chair.png" style="width: 100px; height: auto;"> <!-- Chair image -->
+        <img src="chair.png" alt="Rotating chair" id="rotatingChair"> <!-- Chair image -->
+    </div>
+
+    <!-- Main content, initially hidden -->
+    <div id="mainContent" style="display: none;">
+        <nav>
+            <!-- Navigation items -->
+            <div id="logo">chAIr</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#product">Product</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+        
+        <header>
+            <h1>What can your chair do for you?</h1>
+            <div class="scroll-indicator">SCROLL</div>
+        </header>
     </div>
 
     <script>
-        // Simulate loading then redirect
+        // After the chair has rotated for a while, hide it and show the main content
         setTimeout(() => {
-            window.location.href = "https://the-new-website.com"; // Desired URL
-        }, 10000); // 5 seconds delay
+            document.querySelector('.spinner').style.display = 'none'; // Hide spinner
+            document.getElementById('mainContent').style.display = 'block'; // Show main content
+        }, 5000); // Adjust the timeout as needed
     </script>
 </body>
 </html>
