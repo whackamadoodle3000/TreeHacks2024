@@ -8,6 +8,8 @@ import pickle
 # Step 1: Read the CSV files
 good_posture_df = pd.read_csv("good_posture.csv")
 bad_posture_df = pd.read_csv("bad_posture.csv")
+good_posture_df = good_posture_df.drop(good_posture_df.columns[0], axis=1)
+bad_posture_df = bad_posture_df.drop(bad_posture_df.columns[0], axis=1)
 
 # Step 2: Preprocess bad posture data
 bad_posture_df = bad_posture_df[(bad_posture_df.iloc[:,1:] >= 17).any(axis=1)]

@@ -4,6 +4,9 @@ import time
 import pickle
 import numpy as np
 from tensorflow.keras.models import load_model
+import warnings
+
+warnings.filterwarnings("ignore")
 
 def write_csv(filename, timestamp, cervical_pressure, thoracic_pressure, lumbar_pressure, sacral_pressure):
     # Define the data rows
@@ -14,6 +17,14 @@ def write_csv(filename, timestamp, cervical_pressure, thoracic_pressure, lumbar_
         writer = csv.writer(file)
         writer.writerows(data)
 
+
+def create_frontend_data(goodness,data):
+    data = data[0]
+    if goodness < 0.3:
+        return data.index(max(data))
+    else:
+        return -1
+
 # Example usage:
 # write_csv('pressure_data.csv', 0, 10, 20, 30, 40)  # Initial example data
 
@@ -23,7 +34,6 @@ baud_rate = 9600  # Make sure this matches your Arduino's baud rate
 loaded_model = load_model("posture_model.h5")
 with open("scaler.pkl", "rb") as file:
     scaler = pickle.load(file)
-
 
 
 
@@ -41,11 +51,13 @@ try:
         feature_values = [[port_c, port_b, port_d, port_a]]
         X_new = np.array(feature_values)
         X_new_normalized = scaler.transform(X_new)
-        predictions = loaded_model.predict(X_new_normalized)
-        print(predictions)
-        write_csv("new_data.csv", timestamp, port_c, port_b, port_d, port_a)
+        predictions = loaded_model.predict(X_new_normalized, verbose=0)
+        indicator = create_frontend_data(predictions[0][0],feature_values)
+        # write_csv("new_data.csv", timestamp, port_c, port_b, port_d, port_a)
         # Print the received data
-        print("Received:", port_c, port_b, port_d, port_a)
+        with open("spine_indicator.txt",'w') as file:
+            file.write(str(indicator))
+        # print("Received:", port_c, port_b, port_d, port_a)
 
 except KeyboardInterrupt:
     # Close the serial port when KeyboardInterrupt (Ctrl+C) is detected
