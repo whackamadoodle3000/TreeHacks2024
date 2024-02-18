@@ -1,5 +1,6 @@
 import '../App.css';
 import { Chart } from "react-google-charts";
+import
 import Spine from "./Spine";
 // import ApexChart from "./Chart"
 import { useState, useEffect } from 'react';
@@ -7,6 +8,7 @@ import { useState, useEffect } from 'react';
 function Main() {
 
     const [postureData, setPostureData] = useState([]);
+    const [spinePoint, setSpinePoint] = useState([]);
     
     const updateData = async () => {
         console.log("Fetching");
@@ -27,6 +29,8 @@ function Main() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
+
+                setSpinePoint(data)
                 // setPostureData(data)
                 // const postureData = JSON.parse(data);
                 // console.log(postureData)
@@ -60,8 +64,9 @@ function Main() {
                 <div className='main-title'>
                     <h1 className='title'>CHAIR</h1>
                 </div>
+                {/* <G */}
                 <div className='spine'>
-                    <Spine/>
+                    <Spine spinePoint={spinePoint} />
                 </div>
 
                 {/* <Chart

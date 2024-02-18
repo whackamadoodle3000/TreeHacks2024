@@ -2,12 +2,14 @@ import '../App.css';
 import * as THREE from 'three';
 import { useEffect, useRef } from "react";
 
-function Spine() {
+function Spine(props) {
   const refContainer = useRef(null);
   useEffect(() => {
     var scene, camera, renderer, spine;
     let angle = 0; // Initialize angle for circular motion
     let i = 0;
+
+    let spinePoint = props.spinePoint;
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x8FBCD4);
@@ -17,7 +19,7 @@ function Spine() {
     camera.lookAt(new THREE.Vector3(0, 15, 0));
 
     renderer = new THREE.WebGLRenderer({antialias: true});
-    // renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     // document.body.appendChild(renderer.domElement);
     console.log(refContainer.current)
     refContainer.current && refContainer.current.appendChild( renderer.domElement );
