@@ -12,7 +12,7 @@ def write_csv(filename, timestamp, cervical_pressure, thoracic_pressure, lumbar_
         writer.writerows(data)
 
 # Example usage:
-write_csv('pressure_data.csv', 0, 10, 20, 30, 40)  # Initial example data
+# write_csv('pressure_data.csv', 0, 10, 20, 30, 40)  # Initial example data
 
 # Define the serial port and baud rate
 serial_port = '/dev/tty.usbmodem1302'  # Change this to your Arduino's COM port
