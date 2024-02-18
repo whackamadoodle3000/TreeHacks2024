@@ -9,7 +9,7 @@ function Landing() {
         <img className='background-chair' src={chair}/>
   
         <header className="landing-header">
-          <h1 className='title'>CHAIR</h1>
+          <h2 className='title'>chAIr</h2>
           <p className='caption'>What can your chair do for you?</p>
           <button><Link to="main">click here</Link></button>
         </header>
