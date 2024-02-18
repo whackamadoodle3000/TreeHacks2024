@@ -87,55 +87,50 @@ function Main() {
                     </Grid>
                     <Grid item xs={6} className='grid-item victory-chart'>
                         <div className='grid-content'>
-                            <div className="spine-wrapper" >
-                                <VictoryChart width={800} height={300}>
-                                    {/*<VictoryLabel x={200} y={30} text="Posture Scoring" style={{
-                                        fill: "white",
-                                        fontSize: 11,
-                                    }} textAnchor="middle" />*/}
-                                    <VictoryAxis
-                                        label="Time (s)"
-                                        style={{
-                                            axisLabel: { padding: 40, fill: "white" , fontSize: 11,},
-                                            axis: { stroke: "white" }, // Makes the axis line white
-                                            ticks: { stroke: "white" }, // Makes the ticks white
-                                            tickLabels: { fill: "white",  },
-                                        }}
-                                    />
+                            <VictoryChart width={800} height={300}>
+                                <VictoryAxis
+                                    label="Time (s)"
+                                    style={{
+                                        axisLabel: { padding: 40, fill: "white", fontSize: 11, },
+                                        axis: { stroke: "white" }, // Makes the axis line white
+                                        ticks: { stroke: "white" }, // Makes the ticks white
+                                        tickLabels: { fill: "white", },
+                                    }}
+                                />
 
-                                    {/* Add the Y Axis with a title */}
-                                    <VictoryAxis
-                                        dependentAxis
-                                        label="Alignment Score"
-                                        style={{
-                                            axisLabel: { padding: 40 , fill: "white", fontSize: 11,},
-                                            axis: { stroke: "white" }, // Makes the axis line white
-                                            ticks: { stroke: "white" }, // Makes the ticks white
-                                            tickLabels: { fill: "white", },
-                                        }}
-                                    />
+                                {/* Add the Y Axis with a title */}
+                                <VictoryAxis
+                                    dependentAxis
+                                    label="Alignment Score"
+                                    style={{
+                                        axisLabel: { padding: 40, fill: "white", fontSize: 11, },
+                                        axis: { stroke: "white" }, // Makes the axis line white
+                                        ticks: { stroke: "white" }, // Makes the ticks white
+                                        tickLabels: { fill: "white", },
+                                    }}
+                                />
 
-                                    {/* Add the VictoryLegend component */}
-                                    <VictoryLegend x={600} y={0}
-                                        title="Legend"
-                                        centerTitle
-                                        orientation="horizontal"
-                                        gutter={20}
-                                        style={{ 
-                                            border: { stroke: "white" }, 
-                                            title: { fontSize: 10, fill: "white" }, // Set title text color to white
-                                            labels: { fill: "white" } // Set legend item labels to white
-                                        }}
-                                        data={[
-                                            { name: "Shoulder", symbol: { fill: "#c84d8f" } },
-                                            { name: "Back", symbol: { fill: "#4b0082" } }
-                                        ]}
-                                    />
+                                {/* Add the VictoryLegend component */}
+                                <VictoryLegend x={600} y={0}
+                                    title="Legend"
+                                    centerTitle
+                                    orientation="horizontal"
+                                    gutter={20}
+                                    style={{
+                                        border: { stroke: "white" },
+                                        title: { fontSize: 10, fill: "white" }, // Set title text color to white
+                                        labels: { fill: "white" } // Set legend item labels to white
+                                    }}
+                                    data={[
+                                        { name: "Shoulder", symbol: { fill: "#c84d8f" } },
+                                        { name: "Back", symbol: { fill: "#4b0082" } }
+                                    ]}
+                                />
 
-                                    <VictoryLine data={postureDataRef.current} x="name" y="shoulder_align" style={{ data: { stroke: "#c84d8f" }, fill: "white" }} />
-                                    <VictoryLine data={postureDataRef.current} x="name" y="back_align" style={{ data: { stroke: "#4b0082" }, fill: "white" }} />
-                                </VictoryChart>
-                            </div>
+                                <VictoryLine data={postureDataRef.current} x="name" y="shoulder_align" style={{ data: { stroke: "#c84d8f" }, fill: "white" }} />
+                                <VictoryLine data={postureDataRef.current} x="name" y="back_align" style={{ data: { stroke: "#4b0082" }, fill: "white" }} />
+                            </VictoryChart>
+
                             <p className='caption'>Posture scores</p>
                         </div>
                     </Grid>
@@ -153,14 +148,20 @@ function Main() {
                     </Grid>
                     <Grid item xs={6} className='grid-item'>
                         <div className='grid-content'>
-                            <p className='caption'>Explore how posture affects overall health</p>
+                            <p className='caption'>
+                                Posture Feedback
+                            </p>
                             {gptRecRef === "" && <FaStopwatch className='timer' />}
                             {!gptRecRef === "" && <p className='gpt-content'> {gptRecRef.current} </p>}
                         </div>
                     </Grid>
                     <Grid item xs={6} className='grid-item'>
                         <div className='grid-content'>
-                            <p className='large-text'> Chair is a data visualization platform built for a smart chair equipped with pressure sensors and a webcam, whichuses a combination of deep learning and custom regression models to analyze and correct improper posture while sitting in a chair.
+                            <p className='caption'>
+                                Explore how posture affects overall health
+                            </p>
+                            <p className='large-text'>
+                                Chair is a data visualization platform built for a smart chair equipped with pressure sensors and a webcam, whichuses a combination of deep learning and custom regression models to analyze and correct improper posture while sitting in a chair.
                                 <br /><br />
                                 We equipped a chair with 4 pressure sensors lining the seat back. Using real-time sensor data, we trained a custom deep learning neural network to detect how crooked the spine was when sitting, and identify the most pressurized areas of the spine. The spine animation to the left is an interactive visualization of the most pressurized segments of the spine, where green indicates low and red indicates high pressure. The site also renders a beep to alert the user of poor posture when detected.
                                 <br /><br />
