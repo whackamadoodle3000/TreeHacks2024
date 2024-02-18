@@ -20,7 +20,7 @@
 
 import '../App.css';
 import Spine from "./Spine";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import image from '../skeleton.jpg' // relative path to image 
 import { Grid } from '@mui/material'
 import React from 'react';
