@@ -22,11 +22,24 @@ function Main() {
                 // setWeatherType("ERROR");
                 console.log(err)
             });
+
+        await fetch("http://127.0.0.1:5000/get_spine_data")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                // setPostureData(data)
+                // const postureData = JSON.parse(data);
+                // console.log(postureData)
+            })
+            .catch((err) => {
+                // setWeatherType("ERROR");
+                console.log(err)
+            });
             // setTimeout(updateData, 1000);
     };
 
     // while ()
-    // updateData();
+    updateData();
     console.log("main again")
     return (
         <div className="App">
