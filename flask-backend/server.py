@@ -28,13 +28,6 @@ def get_pose_output_data():
     # Load data from JSON file
     data = read_jsonl('../ml/ml_outputs/posture_scores.json')
     return jsonify(data)
-
-@app.route('/get_spine_graph_data', methods=['GET'])
-# @cross_origin(supports_credentials=True)
-def get_spine_graph_data():
-    # Load data from JSON file
-    data = read_jsonl('../ml-sensordata/spine_scores.jsonl')
-    return jsonify(data)
     
 @app.route('/get_spine_data', methods=['GET'])
 def get_spine_output_data():
@@ -44,4 +37,4 @@ def get_spine_output_data():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

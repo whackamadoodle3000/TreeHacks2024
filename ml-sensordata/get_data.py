@@ -1,7 +1,6 @@
 import serial
 import csv
 import time
-import json
 import pickle
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -67,9 +66,6 @@ try:
         # Print the received data
         with open("spine_indicator.txt",'w') as file:
             file.write(str(indicator))
-
-        with open("spine_scores.jsonl", "a") as file:
-            file.write(json.dumps({"spine":float(predictions[0][0])})+'\n')
         # print("Received:", port_c, port_b, port_d, port_a)
 
 except KeyboardInterrupt:

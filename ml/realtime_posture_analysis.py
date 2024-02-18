@@ -205,9 +205,9 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
             last_x_posture_scores.append(scores)
             if len(last_x_posture_scores) > num_scores_to_average:
                 scores = {
-                    'back_align': sum(x['back_align'] for x in last_x_posture_scores) / num_scores_to_average,
-                    'shoulder_align': sum(x['shoulder_align'] for x in last_x_posture_scores) / num_scores_to_average,
-                    'neck_align': sum(x['neck_align'] for x in last_x_posture_scores) / num_scores_to_average
+                    'back_align': 1-sum(x['back_align'] for x in last_x_posture_scores) / num_scores_to_average,
+                    'shoulder_align': 1-sum(x['shoulder_align'] for x in last_x_posture_scores) / num_scores_to_average,
+                    'neck_align': 1-sum(x['neck_align'] for x in last_x_posture_scores) / num_scores_to_average
                 }
                 file.write(json.dumps(scores) + '\n')
                 last_x_posture_scores.popleft()
