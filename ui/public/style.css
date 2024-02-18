@@ -1,43 +1,10 @@
 body, html {
   margin: 0;
   padding: 0;
-  font-family: "Space Mono", monospace; /* Clean, sans-serif font */
-   
-background: rgb(33,9,46);
-background: linear-gradient(180deg, rgba(33,9,46,1) 0%, rgba(84,66,136,1) 53%, rgba(165,139,226,0.986453956582633) 100%);
-}
-#logo {
-  font-size: 48px;
-  font-weight: 600;
-  color: white;
-  font-family: "Pixelify Sans", sans-serif;
-}
-.subtext {
-  color: white;
+  background-color: black; /* Black background */
+  font-family: 'Arial', sans-serif; /* Clean, sans-serif font */
 }
 
-.typewriter {
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
-  animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
-}
-
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange; }
-}
 nav {
   display: flex;
   justify-content: space-between;
@@ -45,7 +12,11 @@ nav {
   padding: 20px;
 }
 
-
+#logo {
+  font-size: 24px;
+  font-weight: bold;
+  color:white;
+}
 
 nav ul {
   list-style: none;
