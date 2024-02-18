@@ -28,9 +28,9 @@ try:
         line = ser.readline().decode().strip()
         port_a, port_b, port_c, port_d = list(map(int,line.split(",")))
         timestamp = int(time.time())  # Get current timestamp in seconds
-        write_csv("sensor_data.csv", timestamp, port_a, port_b, port_c, port_d)
+        write_csv("sensor_data.csv", timestamp, port_c, port_b, port_d, port_a)
         # Print the received data
-        print("Received:", line)
+        print("Received:", port_c, port_b, port_d, port_a)
 
 except KeyboardInterrupt:
     # Close the serial port when KeyboardInterrupt (Ctrl+C) is detected
