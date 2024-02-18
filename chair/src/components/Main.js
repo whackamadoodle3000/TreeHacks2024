@@ -18,28 +18,20 @@
 // THE SOFTWARE.
 
 import '../App.css';
-import Spine from "./Spine";
+import PlaceholderComponent from './PlaceholderComponent';
 import { useState, useEffect, useRef } from 'react';
-import image from '../skeleton.jpg' // relative path to image 
-import { Grid } from '@mui/material'
-import React from 'react';
+import Spine from "./Spine";
+// import ApexChart from "./Chart"
 import { LineChart, Line } from 'recharts';
+import image from '../skeleton.jpg' // relative path to image
+function Main() {
 
-export default function Main() {
-
-    // const [postureData, setPostureData] = useState([]);
     const postureDataRef = useRef([])
     const spinePointRef = useRef(0)
-
-    const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page B', uv: 800, pv: 3600, amt: 4800 },
-    { name: 'Page B', uv: 5600, pv: 1080, amt: 5600 },
-    ];
-
-
+    
     const updateData = async () => {
         console.log("Fetching");
-        await fetch("http://127.0.0.1:5000/get_spine_graph_data")
+        await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
                 postureDataRef.current = data
@@ -54,7 +46,8 @@ export default function Main() {
         await fetch("http://127.0.0.1:5000/get_spine_data")
             .then((response) => response.json())
             .then((data) => {
-                spinePointRef.current = data
+                console.log(data)
+                spinePointRef.current = data // Correctly set spine data here
 
                 console.log("spinePoint " + spinePointRef.current)
 
@@ -85,18 +78,24 @@ export default function Main() {
                 <div className='main-title'>
                     <h1 className='title'>CHAIR</h1>
                 </div>
-                <Grid></Grid>
-                <div className='spine'>
-                    <Spine spinePoint={spinePointRef} />
+                <div className="main-content">
+                    <div className="spine">
+                        <Spine spinePoint={spinePointRef} />
+                    </div>
+                    <img src={`${image}?${new Date().getTime()}`} />
+                    {/* <PlaceholderComponent content="Dynamic Content 1" /> */}
+                    <PlaceholderComponent content="Dynamic Content 2" />
                 </div>
 
-                <img src={`${image}?${new Date().getTime()}`} />
+                
 
                 <LineChart width={400} height={400} data={postureDataRef.current}>
                     <Line type="monotone" dataKey="back_align" stroke="#8884d8" />
                     <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" />
+                    <Line type="monotone" dataKey="neck_align" stroke="#d884d8" />
                 </LineChart>
             </header>
         </div>
     );
-}
+    }
+    export default Main;
