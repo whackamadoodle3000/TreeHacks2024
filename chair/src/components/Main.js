@@ -2,7 +2,7 @@ import '../App.css';
 import { Chart } from "react-google-charts";
 import Spine from "./Spine";
 // import ApexChart from "./Chart"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Main() {
 
@@ -38,8 +38,21 @@ function Main() {
             // setTimeout(updateData, 1000);
     };
 
+    useEffect(() => {
+        // Fetch data initially
+        updateData();
+
+        // Fetch data every second
+        const intervalId = setInterval(updateData, 1000);
+
+        // Cleanup function
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
+
     // while ()
-    updateData();
+    // updateData();
     console.log("main again")
     return (
         <div className="App">

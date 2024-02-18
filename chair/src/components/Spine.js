@@ -19,13 +19,13 @@ function Spine() {
     renderer = new THREE.WebGLRenderer({antialias: true});
     // renderer.setSize(window.innerWidth, window.innerHeight);
     // document.body.appendChild(renderer.domElement);
+    console.log(refContainer.current)
     refContainer.current && refContainer.current.appendChild( renderer.domElement );
 
     spine = new THREE.Group();
 
     createSpine(spine);
     scene.add(spine);   
-    animate();
 
     function createSpine(spineGroup) {
         // Cervical vertebrae: smaller and closer together
@@ -74,11 +74,13 @@ function Spine() {
         spine.position.x = Math.sin(angle) * radius; // Circular motion on the X-axis
         spine.position.z = Math.cos(angle) * radius; // Circular motion on the Z-axis
 
-        console.log(spine.getObjectByName('vertebra-0'))
+        // console.log(spine.getObjectByName('vertebra-0'))
 
         renderer.render(scene, camera);
     }
-  });
+    animate();
+
+  }, []);
   return (
     <div ref={refContainer}></div>
   );
