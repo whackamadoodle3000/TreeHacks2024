@@ -26,10 +26,11 @@ import { Grid } from '@mui/material'
 import React from 'react';
 import { LineChart, Line } from 'recharts';
 
-function Main() {
+export default function Main() {
 
-    const [postureData, setPostureData] = useState([]);
-    const [spinePoint, setSpinePoint] = useState(-2);
+    // const [postureData, setPostureData] = useState([]);
+    const postureDataRef = useRef([])
+    const spinePointRef = useRef(0)
 
     const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }, 
     { name: 'Page B', uv: 800, pv: 3600, amt: 4800 },
@@ -42,10 +43,9 @@ function Main() {
         await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data[0])
-                setPostureData(data)
-                // const postureData = JSON.parse(data);
-                // console.log("scores " + postureData)
+                postureDataRef.current = data
+
+                console.log("scores " + postureDataRef.current)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
@@ -55,21 +55,14 @@ function Main() {
         await fetch("http://127.0.0.1:5000/get_spine_data")
             .then((response) => response.json())
             .then((data) => {
-                console.log("point " + data)
-                // var point = data;
-                // point = data;
+                spinePointRef.current = data
 
-                // this.setState({spinePoint : data})
-                setSpinePoint(data)
+                console.log("spinePoint " + spinePointRef.current)
 
-                // console.log("spinePoint " + spinePoint)
-                // setPostureData(data)
-                // const postureData = JSON.parse(data);
-                // console.log(postureData)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
-                console.log("error " + err)
+                console.log(err)
             });
         // setTimeout(updateData, 1000);
     };
@@ -95,7 +88,7 @@ function Main() {
                 </div>
                 <Grid></Grid>
                 <div className='spine'>
-                    <Spine spinePoint={spinePoint} />
+                    <Spine spinePoint={spinePointRef}/>
                 </div>
 
                 <img src={`${image}?${new Date().getTime()}`} />
@@ -108,5 +101,3 @@ function Main() {
         </div>
     );
 }
-
-export default Main;
