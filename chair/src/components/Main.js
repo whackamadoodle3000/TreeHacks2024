@@ -62,11 +62,8 @@ function Main() {
         };
     }, []);
 
-    // while ()
-    // updateData();
-    // console.log("main again")
     return (
-        <div className="App">
+        <div className="Posture Analysis Platform">
             <header className="main-header">
                 <div className='main-title'>
                     <h1 className='title'>CHAIR</h1>
