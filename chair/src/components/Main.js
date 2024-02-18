@@ -1,36 +1,14 @@
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
 import '../App.css';
 import PlaceholderComponent from './PlaceholderComponent';
-import { useState, useEffect, useRef } from 'react';
+import { Chart } from "react-google-charts";
 import Spine from "./Spine";
-import { LineChart, Line } from 'recharts';
-import image from '../skeleton.jpg' // relative path to image
 // import ApexChart from "./Chart"
+import { useState, useEffect, useRef } from 'react';
 
 function Main() {
 
     const [postureData, setPostureData] = useState([]);
     const [spinePoint, setSpinePoint] = useState([]);
-
-
     const postureDataRef = useRef([])
     const spinePointRef = useRef(0)
     
@@ -45,9 +23,6 @@ function Main() {
                 console.log("scores " + postureDataRef.current)
                 // const postureData = JSON.parse(data);
                 // console.log(postureData)
-                postureDataRef.current = data
-
-                console.log("scores " + postureDataRef.current)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
@@ -58,16 +33,18 @@ function Main() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
-                spinePointRef.current = data // Correctly set spine data here
-
+                spinePointRef.current = data
                 console.log("spinePoint " + spinePointRef.current)
 
+                // setPostureData(data)
+                // const postureData = JSON.parse(data);
+                // console.log(postureData)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
                 console.log(err)
             });
-        // setTimeout(updateData, 1000);
+            // setTimeout(updateData, 1000);
     };
 
     useEffect(() => {
@@ -83,30 +60,25 @@ function Main() {
         };
     }, []);
 
+    // while ()
+    // updateData();
+    console.log("main again")
     return (
-        <div className="Posture Analysis Platform">
-            <header className="main-header">
-                <div className='main-title'>
-                    <h1 className='title'>CHAIR</h1>
-                </div>
-                <div className="main-content">
-                    <div className="spine">
-                        <Spine spinePoint={spinePointRef} />
-                    </div>
-                    <img src={`${image}?${new Date().getTime()}`} />
-                    {/* <PlaceholderComponent content="Dynamic Content 1" /> */}
-                    <PlaceholderComponent content="Dynamic Content 2" />
+        <div className="App">
+            <div className="container">
+                {/* Title Segment */}
+                <div className="title-segment">
+                    <h1>chAIr</h1>
                 </div>
 
-                
-
-                <LineChart width={400} height={400} data={postureDataRef.current}>
-                    <Line type="monotone" dataKey="back_align" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" />
-                    <Line type="monotone" dataKey="neck_align" stroke="#d884d8" />
-                </LineChart>
-            </header>
+                {/* Additional Content Segment */}
+                <h2>Spine Sensor</h2> 
+                <div className="spine-wrapper">
+                    <Spine spinePoint={spinePointRef} />
+                </div>
+                <p>Explore how posture affects overall health.</p>
+            </div>
         </div>
     );
-    }
-    export default Main;
+}
+export default Main;

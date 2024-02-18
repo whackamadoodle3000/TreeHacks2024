@@ -106,9 +106,6 @@ export default function Spine(props) {
         createSpine(spine);
         scene.add(spine);   
 
-
-  
-
             renderer.render(scene, camera);
         }
         animate();

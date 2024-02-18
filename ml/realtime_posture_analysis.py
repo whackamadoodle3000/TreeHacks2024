@@ -21,7 +21,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 import time
-from collections import deque
 
 # Posture Regression Scoring
 def calculate_distance(point1, point2):
@@ -139,12 +138,13 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
 
     print("Starting real-time inference...")
     
-    last_call_time = time.time()
+    last_call_time = time.time()    
     
-    num_scores_to_average = 20
-    last_x_posture_scores = deque()
+    # Initially clear the posture_scores.json file
+    with open('posture_scores.json', 'w') as file:
+        file.write('[')  # Start of JSON array
     
-    with open('ml_outputs/posture_scores.json', 'w') as file:
+    with open('posture_scores.json', 'w') as file:
         while True:
             ret, frame = cap.read()
             if not ret:
@@ -190,24 +190,15 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
             
             # posture scores saved to posture_scores.json file 
             keypoints_yx = keypoints[0, :, :2] # Select the first batch of keypoints and then take only the (y, x) coordinates, discarding the confidence scores
-            keypoints_processed = keypoints_yx.flatten()#.reshape(1, -1) # Flatten the array to a shape of (1, 34)
+            keypoints_processed = keypoints_yx.flatten().reshape(1, -1) # Flatten the array to a shape of (1, 34)
             
-            #score_back = model_back.predict(keypoints_processed)[0][0]
-            #score_shoulder = hmodel_shoulder.predict(keypoints_processed)[0][0]
-            #score_neck_head = model_neck_head.predict(keypoints_processed)[0][0]
-            score_back, score_shoulder, score_neck_head = heuristic_posture_scores(keypoints_processed).values()
+            score_back = model_back.predict(keypoints_processed)[0][0]
+            score_shoulder = model_shoulder.predict(keypoints_processed)[0][0]
+            score_neck_head = model_neck_head.predict(keypoints_processed)[0][0]
 
-            # Write posture scores to JSONL file, every 1 second
+            # Write posture scores to JSONL file
             scores = {'back_align': float(score_back), 'shoulder_align': float(score_shoulder), 'neck_align': float(score_neck_head)}
-            last_x_posture_scores.append(scores)
-            if len(last_x_posture_scores) > num_scores_to_average:
-                scores = {
-                    'back_align': sum(x['back_align'] for x in last_x_posture_scores) / num_scores_to_average,
-                    'shoulder_align': sum(x['shoulder_align'] for x in last_x_posture_scores) / num_scores_to_average,
-                    'neck_align': sum(x['neck_align'] for x in last_x_posture_scores) / num_scores_to_average
-                }
-                file.write(json.dumps(scores) + '\n')
-                last_x_posture_scores.popleft()
+            file.write(json.dumps(scores) + '\n')
             
             # Write GPT diagnoses to the posture_recommendations.txt file every minute
             current_time = time.time()
@@ -284,7 +275,7 @@ if __name__ == "__main__":
     y_back, y_shoulder, y_neck_head = [], [], []
     # Simulate scores for back, shoulder, and neck/head alignment (ranging from 0 to 1)
     for keypoints in X:
-        curr_y_back, curr_y_shoulder, curr_y_neck_head = heuristic_posture_scores(keypoints).values()
+        curr_y_back, curr_y_neck_head, curr_y_shoulder = heuristic_posture_scores(keypoints).values()
         y_back.append(curr_y_back)
         y_shoulder.append(curr_y_shoulder)
         y_neck_head.append(curr_y_neck_head)
