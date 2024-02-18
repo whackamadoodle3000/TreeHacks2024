@@ -2,15 +2,13 @@ import '../App.css';
 import PlaceholderComponent from './PlaceholderComponent';
 import { Chart } from "react-google-charts";
 import Spine from "./Spine";
-    { name: 'Page B', uv: 5600, pv: 1080, amt: 5600 },
-];
+// import ApexChart from "./Chart"
+import { useState, useEffect } from 'react';
 
 function Main() {
 
     const [postureData, setPostureData] = useState([]);
     const [spinePoint, setSpinePoint] = useState([]);
-    const spineRef = useRef(null); // Create a ref
-    
     
     const updateData = async () => {
         console.log("Fetching");
@@ -35,20 +33,6 @@ function Main() {
 
 
                 // setPostureData(data)
-import { useState, useEffect, useRef } from 'react';
-import image from '../skeleton.jpg' // relative path to image 
-import { Grid } from '@mui/material'
-import React from 'react';
-import { LineChart, Line } from 'recharts';
-
-export default function Main() {
-
-    // const [postureData, setPostureData] = useState([]);
-    const postureDataRef = useRef([])
-    const spinePointRef = useRef(0)
-
-    const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }, 
-    { name: 'Page B', uv: 800, pv: 3600, amt: 4800 },
                 // const postureData = JSON.parse(data);
                 // console.log(postureData)
             })
@@ -85,7 +69,7 @@ export default function Main() {
       What can your chair do for you?
     </div>
     <div className="main-content">
-    <PlaceholderComponent>
+     <PlaceholderComponent>
   <div className="spine-wrapper">
     <Spine spinePoint={spinePoint} />
   </div>
