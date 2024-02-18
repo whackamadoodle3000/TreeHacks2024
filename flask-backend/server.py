@@ -19,7 +19,7 @@ def read_jsonl(filename):
 # @cross_origin(supports_credentials=True)
 def get_pose_output_data():
     # Load data from JSON file
-    data = read_jsonl('../ml/posture_scores.json')
+    data = read_jsonl('../ml/ml_outputs/posture_scores.json')
     return jsonify(data)
     
 @app.route('/get_spine_data', methods=['GET'])

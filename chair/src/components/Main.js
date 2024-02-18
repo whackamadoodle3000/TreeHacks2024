@@ -10,24 +10,6 @@ function Main() {
     const [postureData, setPostureData] = useState([]);
     const [spinePoint, setSpinePoint] = useState([]);
     const spineRef = useRef(null); // Create a ref
-
-    useEffect(() => {
-        if (spineRef.current) {
-            const spineElement = spineRef.current; // Directly manipulate the DOM element
-            // Assuming it's a canvas or similar, adjust its attributes directly
-            const targetWidth = 150; // Desired width
-            const targetHeight = 150; // Desired height
-            spineElement.style.width = `${targetWidth}px`;
-            spineElement.style.height = `${targetHeight}px`;
-            // If it's a canvas and you need to adjust the drawing scale:
-            if (spineElement.tagName === 'CANVAS') {
-                spineElement.width = targetWidth;
-                spineElement.height = targetHeight;
-                // Additional logic to scale/redraw content might be necessary
-            }
-        }
-    }, []); // Empty dependency array means this runs once after initial render
-
     
     const updateData = async () => {
         console.log("Fetching");

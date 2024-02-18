@@ -66,6 +66,8 @@ function Spine(props) {
 
 
     function animate() {
+        console.log("spine point" + props.spinePoint)
+
         camera.position.set(0, 30, 50); // Move the camera back or adjust as needed
         camera.fov = 80; // Increase the field of view if necessary
         camera.updateProjectionMatrix();
