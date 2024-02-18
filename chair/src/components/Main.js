@@ -3,12 +3,14 @@ import PlaceholderComponent from './PlaceholderComponent';
 import { Chart } from "react-google-charts";
 import Spine from "./Spine";
 // import ApexChart from "./Chart"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function Main() {
 
     const [postureData, setPostureData] = useState([]);
     const [spinePoint, setSpinePoint] = useState([]);
+    const postureDataRef = useRef([])
+    const spinePointRef = useRef(0)
     
     const updateData = async () => {
         console.log("Fetching");
@@ -16,7 +18,9 @@ function Main() {
             .then((response) => response.json())
             .then((data) => {
                 // console.log(data[0])
+                postureDataRef.current = data
                 console.log (setPostureData(data))
+                console.log("scores " + postureDataRef.current)
                 // const postureData = JSON.parse(data);
                 // console.log(postureData)
             })
@@ -29,8 +33,8 @@ function Main() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
-                                setSpinePoint(data); // Correctly set spine data here
-
+                spinePointRef.current = data
+                console.log("spinePoint " + spinePointRef.current)
 
                 // setPostureData(data)
                 // const postureData = JSON.parse(data);
@@ -67,7 +71,7 @@ function Main() {
                 </div>
                 <div className="main-content">
                     <div className="spine">
-                        <Spine spinePoint={spinePoint} />
+                        <Spine spinePoint={spinePointRef} />
                     </div>
                     <PlaceholderComponent content="Dynamic Content 1" />
                     <PlaceholderComponent content="Dynamic Content 2" />
