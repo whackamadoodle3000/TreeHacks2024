@@ -21,10 +21,15 @@ import '../App.css';
 import PlaceholderComponent from './PlaceholderComponent';
 import { useState, useEffect, useRef } from 'react';
 import Spine from "./Spine";
-// import ApexChart from "./Chart"
 import { LineChart, Line } from 'recharts';
 import image from '../skeleton.jpg' // relative path to image
+// import ApexChart from "./Chart"
+
 function Main() {
+
+    const [postureData, setPostureData] = useState([]);
+    const [spinePoint, setSpinePoint] = useState([]);
+
 
     const postureDataRef = useRef([])
     const spinePointRef = useRef(0)
@@ -34,6 +39,12 @@ function Main() {
         await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
+                // console.log(data[0])
+                postureDataRef.current = data
+                console.log (setPostureData(data))
+                console.log("scores " + postureDataRef.current)
+                // const postureData = JSON.parse(data);
+                // console.log(postureData)
                 postureDataRef.current = data
 
                 console.log("scores " + postureDataRef.current)
