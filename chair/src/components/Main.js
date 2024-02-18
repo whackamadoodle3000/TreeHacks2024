@@ -72,6 +72,13 @@ function Main() {
                     <PlaceholderComponent content="Dynamic Content 1" />
                     <PlaceholderComponent content="Dynamic Content 2" />
                 </div>
+
+                <img src={`${image}?${new Date().getTime()}`} />
+                
+                <LineChart width={400} height={400} data={postureDataRef.current}>
+                    <Line type="monotone" dataKey="back_align" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="shoulder_align" stroke="#8884d8" />
+                </LineChart>
             </header>
         </div>
     );
