@@ -1,8 +1,11 @@
 import '../App.css';
 import { VictoryChart, VictoryLabel, VictoryAxis, VictoryLine, VictoryLegend } from 'victory';
 import Spine from "./Spine";
+import image from '../skeleton.jpg' // relative path to image
+// import ApexChart from "./Chart"
+import { Grid, Item } from '@mui/material'
 import { useState, useEffect, useRef } from 'react';
-import image from '../skeleton.jpg';
+import { FaStopwatch } from 'react-icons/fa'
 
 function Main() {
 
@@ -62,46 +65,18 @@ function Main() {
         //setTimeout(updateData,1000);
     };
 
-
-
-    useEffect(() => {
-        //Fetchdatainitially
-        updateData();
-
-        //Fetchdataeverysecond
-        const intervalId = setInterval(updateData, 1000);
-
-        //Cleanupfunction
-        return () => {
-            clearInterval(intervalId);
-        };
-    }, []);
-
-    //while()
-    //updateData();
-    console.log("mainagain")
-    return (
-        <div className="App">
-            <div className="container">
-                {/*TitleSegment*/}
-                < div className="title-segment" >
-                    <h1>chAIr</h1>
-                </div >
-
-                {/*AdditionalContentSegment*/}
-                < h2 > Spine Sensor</h2 >
-                <div className="spine-wrapper" >
-                    <Spine spinePoint={spinePointRef} />
-                </div >
-                <p>Explore how posture affects overall health.</p>
-
-                < h2 > Posture Detection</h2 >
-                <div className="spine-wrapper">
-                    <img src={`${image}?${new Date().getTime()}`} alt="Skeleton" />
-                </div>
-
-                {/* Add the X Axis with a title */}
-                <div className="spine-wrapper">
+  return (
+    <div className="App">
+        <header className="main-header">
+            <Grid container spacing={2} className='grid'>
+                <Grid item xs={12} >
+                    <h1 className='main-title'>CH</h1>
+                    <h1 className='main-title gradient'>AI</h1>
+                    <h1 className='main-title'>R</h1>
+                </Grid>
+                <Grid item xs={6} className='grid-item'>
+                    <div className='grid-content'>
+                    <div className="spine-wrapper">
                     <VictoryChart width={400} height={400}>
                         <VictoryLabel x={200} y={30} text="Posture Scoring" textAnchor="middle" />
                         <VictoryAxis
@@ -137,8 +112,42 @@ function Main() {
                         <VictoryLine data={postureDataRef.current} x="name" y="back_align" style={{ data: { stroke: "#4b0082" } }} />
                     </VictoryChart>
                 </div>
-            </div >
-        </div >
-    );
+                        <p className='caption'>Posture scores</p>
+                    </div>
+                </Grid>
+                <Grid item xs={3} className='grid-item'>
+                    <div className='grid-content'>
+                        <img className='skeleton' src={`${image}?${new Date().getTime()}`} />
+                        <p className='caption'>Skeleton visualization</p>
+                    </div>
+                </Grid>
+                <Grid item xs={3} className='grid-item'>
+                    <div className='grid-content'>
+                        <Spine className='spine' spinePoint={spinePointRef} />
+                        <p className='caption'>Spine pressure map</p>
+                    </div>
+                </Grid>
+                <Grid item xs={6} className='grid-item'>
+                    <div className='grid-content'>
+                        <p className='caption'>Explore how posture affects overall health</p>
+                        {!recievedSuggestions && <FaStopwatch className='timer'/>}
+                        {!recievedSuggestions && <p className='gpt-content'></p>}
+                    </div>
+                </Grid>
+                <Grid item xs={6} className='grid-item'>
+                    <div className='grid-content'>
+                        <p className='large-text'> Chair is a data visualization platform built for a smart chair equipped with pressure sensors and a webcam, whichuses a combination of deep learning and custom regression models to analyze and correct improper posture while sitting in a chair.
+                                                <br/><br/>
+                                                We equipped a chair with 4 pressure sensors lining the seat back. Using real-time sensor data, we trained a custom deep learning neural network to detect how crooked the spine was when sitting, and identify the most pressurized areas of the spine. The spine animation to the left is an interactive visualization of the most pressurized segments of the spine, where green indicates low and red indicates high pressure. The site also renders a beep to alert the user of poor posture when detected.
+                                                <br/><br/>
+                                                In the webcam above, we use computer vision techniques to detect and render real-time pose estimations. We overlay the pose estimations on top of the live webcam feed. The line chart to the right displays historical posture scores from the past hour which analyze neck-to-head, back, and shoulder alignment. The higher the score, the better the alignment.</p>
+                        <p className='gptContent'></p>
+                    </div>
+                </Grid>
+            </Grid>
+            
+        </header>
+    </div >
+  );
 }
 export default Main;
