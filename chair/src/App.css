@@ -7,29 +7,10 @@
 }
 
 .App {
-  margin: 10px;
   text-align: center;
   background-color: #000; /* Black background */
   color: #FFF; /* White text for contrast */
 }
-
-.main-header {
-  padding: 2rem 0;
-}
-
-.main-title {
-  text-align: center;
-}
-
-.title {
-  font-size: 4rem;
-  color: white;
-  text-transform: none;
-  letter-spacing: 0.01em;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adjust shadow for darker background */
-}
-
 
 .App-logo {
   height: 40vmin;
@@ -95,14 +76,14 @@
   text-align: center;
   text-transform: lowercase;
   border-radius: 10px; /* Soften edges for a modern look */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
   transition: transform 0.3s ease; /* Smooth transition for interaction */
 }
 
 
 
 .segment, .title-segment, .spine-wrapper {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); */
   border-radius: 8px; /* Soften edges */
   margin-top: 0;
   margin: 10; /* Ensure some space around each segment for the shadow to be visible */
@@ -111,7 +92,7 @@
 
 .segment:hover {
   transform: translateY(-5px); /* More subtle lift */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Increase shadow for depth */
+  /* box-shadow: 0 8px 16px rgba(0,0,0,0.2); */
 }
 
 .title-segment, .question-segment, .content-segment {
@@ -122,6 +103,10 @@
 h2 {
   margin-top: 5px; /* Reduce space above "Spine Sensor" text */
   margin-bottom: 5px; /* Reduce space below "Spine Sensor" text, adjust as needed */
+}
+
+.spine {
+  margin-left: 40px;
 }
 
 .spine-wrapper {
@@ -154,11 +139,6 @@ h2 {
   animation: sparklingBorder 2s infinite alternate;
 }
 
-
-
-
-
-
 .title-segment .spine-wrapper {
   display: inline-block; /* Or 'block', depending on layout needs */
   transform: scale(0.75); /* Adjust scale value as needed */
@@ -173,33 +153,33 @@ body {
 }
 
 
-
-
-
 .main-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  background-color: black;
   color: white;
+  align-items: left;
 }
 
-.main-content {
+
+.main-top-bar {
+  align-items: left;
+}
+
+.grid {
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  padding: 20px
+}
+
+.grid-item {
+  align-items: center;
+  justify-content: center;
   display: flex;
-  justify-content: center; /* Centers items horizontally */
-  align-items: center; /* Aligns items vertically */
-  gap: 20px; /* Adjusts the space between the components */
-  /* Ensure flex-direction is set to row */
-  flex-direction: row;
 }
 
-.placeholder, .spine {
-  flex: 1; /* Default flex-grow value */
-  /*border: 2px solid #ddd; /* Example styling, adjust as needed */
-  border-radius: 10px; /* Gives a slight rounded corner for a modern look */
-  padding: 20px;
-  min-width: 150px; /* Ensures that each component has at least a minimum width */
+.grid-content {
+  display: block;
+  align-items: center;
   text-align: center;
 }
 
@@ -220,12 +200,7 @@ body {
   margin: 0px;
   font-size: 150px;
   display: inline-block;
-  /* filter: blur(3px); */
-}
-
-.caption {
-  margin-top: 10px;
-  font-size: 40px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.2);
 }
 
 .background-chair {
@@ -242,22 +217,10 @@ body {
 }
 
 .main-title {
-  margin: 10px;
-  text-align: center;
-}
-
-
-.main-header {
-  z-index: 10;
-}
-
-.spine > svg, .spine > canvas {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.placeholder, .spine {
-  overflow: hidden; 
+  /* margin-top: 20px; */
+  margin: 0px;
+  font-size: 40px;
+  display: inline-block;
 }
 
 .placeholder {
@@ -267,22 +230,6 @@ body {
   align-items: center;
   gap: 10px; /* Space between Spine component and textual content */
 }
-
-
-
-.spine {
-  flex: 1; /* Adjust if you want to change the flex-grow behavior */
-  /*max-width: 100; /* Example to make the Spine visualization smaller */
-  height: auto; /* Maintain aspect ratio */
-  margin: 0 auto; /* Center the visualization in the placeholder */
-  display: flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  border: 2px solid #ddd;
-  padding: 20px;
-  text-align: center;
-}
-
 
 .placeholder {
   display: flex;

@@ -15,13 +15,15 @@ export default function Spine(props) {
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0x8FBCD4);
 
+        const w = 200;
+        const h = 400;
 
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 30, 100);
-        camera.lookAt(new THREE.Vector3(0, 15, 0));
+        camera = new THREE.PerspectiveCamera(100, w / h , 0.1, 1000);
+        camera.position.set(0, 27, 40);
+            camera.lookAt(new THREE.Vector3(0, 15, 0));
 
         renderer = new THREE.WebGLRenderer({antialias: true});
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(w, h, true);
         // document.body.appendChild(renderer.domElement);
         console.log(refContainer.current)
         refContainer.current && refContainer.current.appendChild( renderer.domElement );
@@ -40,7 +42,7 @@ export default function Spine(props) {
         function animate() {
             console.log("this" + props.spinePoint.current)
 
-            camera.position.set(0, 30, 50); // Move the camera back or adjust as needed
+            camera.position.set(0, 30, 25); // Move the camera back or adjust as needed
             camera.fov = 80; // Increase the field of view if necessary
             camera.updateProjectionMatrix();
 
@@ -112,6 +114,6 @@ export default function Spine(props) {
 
     }, []);
     return (
-        <div ref={refContainer}></div>
+        <div className='spine' ref={refContainer}></div>
     );
 }

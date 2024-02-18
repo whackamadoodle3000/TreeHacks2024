@@ -1,8 +1,10 @@
 import '../App.css';
 import {LineChart, Line} from 'recharts';
 import Spine from "./Spine";
+import image from '../skeleton.jpg' // relative path to image
+// import ApexChart from "./Chart"
+import { Grid, Item } from '@mui/material'
 import { useState, useEffect, useRef } from 'react';
-import image from '../skeleton.jpg';
 
 function Main() {
 
@@ -59,37 +61,43 @@ function Main() {
     };
   }, []);
 
-  //while()
-  //updateData();
-  console.log("mainagain")
   return (
     <div className="App">
-      <div className="container">
-        {/*TitleSegment*/}
-        < div className="title-segment" >
-          <h1>chAIr</h1>
-        </div >
+        <header className="main-header">
+            <Grid container spacing={2} className='grid'>
+                <Grid item xs={12} >
+                    <h1 className='main-title'>CH</h1>
+                    <h1 className='main-title gradient'>AI</h1>
+                    <h1 className='main-title'>R</h1>
+                </Grid>
+                <Grid item xs={6} className='grid-item'>
+                    <div className='grid-content'>
+                        <LineChart width={250} height={300} data={postureDataRef.current}>
+                                        <Line type="monotone" dataKey="back_align" stroke="#8884d8" dot={false} />
+                                        <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" dot={false} />
+                                        <Line type="monotone" dataKey="neck_align" stroke="#d884d8" dot={false} />
+                        </LineChart>
+                        <p>Explore how posture affects overall health.</p>
+                    </div>
+                </Grid>
+                <Grid item xs={3} className='grid-item'>
+                    <div className='grid-content'>
+                        <img src={`${image}?${new Date().getTime()}`} />
+                        <h2>Skeleton visualization</h2>
+                    </div>
+                </Grid>
+                <Grid item xs={3} className='grid-item'>
+                    <div className='grid-content'>
+                        <Spine className='spine' spinePoint={spinePointRef} />
+                        <h2>Spine pressure map</h2>
+                    </div>
+                </Grid>
+                <Grid item xs={12} className='grid-item'>
 
-        {/*AdditionalContentSegment*/}
-        < h2 > Spine Sensor</h2 >
-        <div className="spine-wrapper" >
-          <Spine spinePoint={spinePointRef} />
-        </div >
-        <p>Explore how posture affects overall health.</p>
-
-        < h2 > Posture Detection</h2 >
-        <div className="spine-wrapper">
-          <img src={`${image}?${new Date().getTime()}`} alt="Skeleton" />
-        </div>
-
-        <div className="spine-wrapper">
-        <LineChart width={250} height={300} data={postureDataRef.current}>
-                        <Line type="monotone" dataKey="back_align" stroke="#8884d8" dot={false} />
-                        <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" dot={false} />
-                        <Line type="monotone" dataKey="neck_align" stroke="#d884d8" dot={false} />
-         </LineChart>
-        </div>
-      </div >
+                </Grid>
+            </Grid>
+            
+        </header>
     </div >
   );
 }
