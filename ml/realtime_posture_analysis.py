@@ -127,7 +127,7 @@ def initialize_webcam():
     
     return cap, frame_count, output_frames, initial_shape
 
-def process_webcam_input(movenet, WIDTH=512, HEIGHT=512, MAX_FRAMES=1000):
+def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
     """
     Continuously captures frames from the webcam, displays the estimated skeleton in real-time.
     """
