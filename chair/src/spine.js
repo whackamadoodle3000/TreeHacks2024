@@ -1,38 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Any chair can be a smart chair. Get better posture today.</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=VT323&display=swap" rel="stylesheet">
-
-</head>
-<body>
-    <div class="spinner">
-        <img src="chair.png" alt="Rotating chair" id="rotatingChair">
-    </div>
-
-    <div id="mainContent" style="display: none;">
-        <!--<nav>
-            
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </nav>-->
-        <header>
-            <div id="logo">chairing is caring</div>
-            <div class = "subtext typewriter">Any chair can be a smart chair. Get better posture today.</div>
-         <!-- <div class="scroll-indicator">SCROLL</div>-->
-        </header>
-    </div>
-
-    <script>
 
     setTimeout(() => {
             document.querySelector('.spinner').style.display = 'none';
@@ -110,6 +75,3 @@
 
         animate();
     }
-    </script>
-</body>
-</html>
