@@ -60,28 +60,20 @@ function Main() {
     // updateData();
     console.log("main again")
     return (
-        <div className="App">
-  <header className="main-header">
-    <div className='main-title'>
-      <h1 className='title'>chAIr</h1>
-    </div>
-    <div className='popping-question'>
-      What can your chair do for you?
-    </div>
-    <div className="main-content">
-     <PlaceholderComponent>
-  <div className="spine-wrapper">
-    <Spine spinePoint={spinePoint} />
-  </div>
-</PlaceholderComponent>
-
-      <PlaceholderComponent content="Dynamic Content 1" />
-      <PlaceholderComponent content="Dynamic Content 2" />
-    </div>
-  </header>
-</div>
-
+         <div className="App">
+            <header className="main-header">
+                <div className='main-title'>
+                    <h1 className='title'>CHAIR</h1>
+                </div>
+                <div className="main-content">
+                    <div className="spine">
+                        <Spine spinePoint={spinePoint} />
+                    </div>
+                    <PlaceholderComponent content="Dynamic Content 1" />
+                    <PlaceholderComponent content="Dynamic Content 2" />
+                </div>
+            </header>
+        </div>
     );
 }
-
 export default Main;

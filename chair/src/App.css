@@ -160,15 +160,16 @@
 
 
 .spine {
-  max-width: 10%; /* Example to make the Spine visualization smaller */
-  height: 12px; /* Maintain aspect ratio */
+  flex: 1; /* Adjust if you want to change the flex-grow behavior */
+  max-width: %; /* Example to make the Spine visualization smaller */
+  height: auto; /* Maintain aspect ratio */
   margin: 0 auto; /* Center the visualization in the placeholder */
   display: flex;
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
   border: 2px solid #ddd;
   border-radius: 10px;
-  padding: 30px;
+  padding: 20px;
   text-align: center;
 }
 
@@ -181,8 +182,8 @@
   border: 2px solid #ddd;
   border-radius: 10px;
   padding: 20px;
-  min-width: 150px; 
-  min-height: 100px; 
+  min-width: 150px; /* Adjust based on your needs */
+  min-height: 100px; /* Adjust based on your needs */
   text-align: center;
 }
 
