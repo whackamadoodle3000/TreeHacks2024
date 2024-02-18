@@ -216,6 +216,7 @@ body {
 }
 
 .gpt-content {
+  font-size: 20px;
   background-color:#121212;
   text-align: left;
   margin: 10px;
@@ -226,9 +227,10 @@ body {
 }
 
 .large-text {
-  font-size: 18px;
+  font-size: 15px;
   text-align: left;
-  margin: 0px;
+  margin: 10px;
+  margin-top: 20px;
 }
 
 .landing-title {

@@ -9,9 +9,11 @@ import { FaStopwatch } from 'react-icons/fa'
 
 function Main() {
 
-    const postureDataRef = useRef([])
     const spinePointRef = useRef(0)
-    const gptRecRef = useRef("")
+    // const gptRecRef = useRef("")
+    const [postureData, setPostureData] = useState([])
+    const [gptRec, setGptRec] = useState("")
+    const updatesRef = useRef(0)
 
 
     const updateData = async () => {
@@ -19,30 +21,11 @@ function Main() {
         await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
-                //console.log(data[0])
-                postureDataRef.current = data
-                // console.log(setPostureData(data))
-                console.log("scores" + postureDataRef.current)
-                //constpostureData=JSON.parse(data);
-                //console.log(postureData)
+                setPostureData(data)
+                console.log("scores" + postureData)
             })
             .catch((err) => {
                 //setWeatherType("ERROR");
-                console.log(err)
-            });
-
-
-        await fetch("http://127.0.0.1:5000/get_gpt_rec")
-            .then((response) => response.text())
-            .then((data) => {
-                console.log(data)
-                gptRecRef.current = data // Correctly set spine data here
-
-                console.log("gpt " + gptRecRef.current)
-
-            })
-            .catch((err) => {
-                // setWeatherType("ERROR");
                 console.log(err)
             });
 
@@ -63,10 +46,14 @@ function Main() {
                 console.log(err)
             });
         //setTimeout(updateData,1000);
+        updatesRef.current = updatesRef.current + 1;
+        console.log("number " + Number(updatesRef.current))
     };
+    
     useEffect(() => {
         //Fetchdatainitially
         updateData();
+
 
         //Fetchdataeverysecond
         const intervalId = setInterval(updateData, 1000);
@@ -76,6 +63,30 @@ function Main() {
             clearInterval(intervalId);
         };
     }, []);
+
+    useEffect(() => {
+        const intervalId = setInterval(async () => {
+            await fetch("http://127.0.0.1:5000/get_gpt_rec")
+            .then((response) => response.text())
+            .then((data) => {
+                // gptRecRef.current = data // Correctly set spine data here
+                setGptRec(data)
+
+                // console.log("gpt " + gptRecRef.current)
+
+            })
+            .catch((err) => {
+                // setWeatherType("ERROR");
+                console.log(err)
+            });
+        }, 30000);
+
+        //Cleanupfunction
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
+
     return (
         <div className="App">
             <header className="main-header">
@@ -87,14 +98,20 @@ function Main() {
                     </Grid>
                     <Grid item xs={6} className='grid-item victory-chart'>
                         <div className='grid-content'>
-                            <VictoryChart width={800} height={300}>
+                            <VictoryChart  width={800} height={300}>
+                                {/*<VictoryLabel x={200} y={30} text="Posture Scoring" style={{
+                                    fill: "white",
+                                    fontSize: 11,
+                                }} textAnchor="middle" />*/}
                                 <VictoryAxis
                                     label="Time (s)"
-                                    style={{
-                                        axisLabel: { padding: 40, fill: "white", fontSize: 11, },
+                                    scale={{ x: "linear" }} // Specifies the scale type for the x-axis
+                                    domain={{ x: [Number(updatesRef.current), (600 + Number(updatesRef.current))] }} // Hardcodes the x-axis to range from 0 to 60
+                                    style={{    
+                                        axisLabel: { padding: 40, fill: "white" , fontSize: 11,},
                                         axis: { stroke: "white" }, // Makes the axis line white
                                         ticks: { stroke: "white" }, // Makes the ticks white
-                                        tickLabels: { fill: "white", },
+                                        tickLabels: { fill: "white",  },
                                     }}
                                 />
 
@@ -127,8 +144,8 @@ function Main() {
                                     ]}
                                 />
 
-                                <VictoryLine data={postureDataRef.current} x="name" y="shoulder_align" style={{ data: { stroke: "#c84d8f" }, fill: "white" }} />
-                                <VictoryLine data={postureDataRef.current} x="name" y="back_align" style={{ data: { stroke: "#4b0082" }, fill: "white" }} />
+                                <VictoryLine data={postureData} x="name" y="shoulder_align" style={{ data: { stroke: "#c84d8f" }, fill: "white" }} />
+                                <VictoryLine data={postureData} x="name" y="back_align" style={{ data: { stroke: "#4b0082" }, fill: "white" }} />
                             </VictoryChart>
 
                             <p className='caption'>Posture scores</p>
@@ -148,11 +165,9 @@ function Main() {
                     </Grid>
                     <Grid item xs={6} className='grid-item'>
                         <div className='grid-content'>
-                            <p className='caption'>
-                                Posture Feedback
-                            </p>
-                            {gptRecRef === "" && <FaStopwatch className='timer' />}
-                            {!gptRecRef === "" && <p className='gpt-content'> {gptRecRef.current} </p>}
+                            <p className='caption'>Posture Feedback</p>
+                            {gptRec == "" && <FaStopwatch className='timer' />}
+                            {!gptRec == "" && <p className='gpt-content'> {gptRec} </p>}
                         </div>
                     </Grid>
                     <Grid item xs={6} className='grid-item'>
