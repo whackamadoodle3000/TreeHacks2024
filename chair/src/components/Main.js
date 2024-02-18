@@ -1,26 +1,24 @@
 import '../App.css';
 import { Chart } from "react-google-charts";
-// import
 import Spine from "./Spine";
-// import ApexChart from "./Chart"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import image from '../skeleton.jpg' // relative path to image 
 import { Grid } from '@mui/material'
 
-function Main() {    
+export default function Main() {    
 
-    const [postureData, setPostureData] = useState([]);
-    const [spinePoint, setSpinePoint] = useState(-2);
+    // const [postureData, setPostureData] = useState([]);
+    const postureDataRef = useRef([])
+    const spinePointRef = useRef(0)
 
     const updateData = async () => {
         console.log("Fetching");
         await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data[0])
-                setPostureData(data)
-                // const postureData = JSON.parse(data);
-                // console.log("scores " + postureData)
+                postureDataRef.current = data
+
+                console.log("scores " + postureDataRef.current)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
@@ -30,23 +28,15 @@ function Main() {
         await fetch("http://127.0.0.1:5000/get_spine_data")
             .then((response) => response.json())
             .then((data) => {
-                console.log("point " + data)
-                // var point = data;
-                // point = data;
+                spinePointRef.current = data
 
-                // this.setState({spinePoint : data})
-                setSpinePoint(data)
+                console.log("spinePoint " + spinePointRef.current)
 
-                // console.log("spinePoint " + spinePoint)
-                // setPostureData(data)
-                // const postureData = JSON.parse(data);
-                // console.log(postureData)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
-                console.log("error " + err)
+                console.log(err)
             });
-            // setTimeout(updateData, 1000);
     };
 
     useEffect(() => {
@@ -70,7 +60,7 @@ function Main() {
                 </div>
                 <Grid></Grid>
                 <div className='spine'>
-                    <Spine spinePoint={spinePoint} />
+                    <Spine spinePoint={spinePointRef}/>
                 </div>
 
                 <img src={`${image}?${new Date().getTime()}`} />
@@ -86,5 +76,3 @@ function Main() {
         </div>
     );
 }
-
-export default Main;
