@@ -79,7 +79,7 @@ function Main() {
                 // setWeatherType("ERROR");
                 console.log(err)
             });
-        }, 30000);
+        }, 1000);
 
         //Cleanupfunction
         return () => {
