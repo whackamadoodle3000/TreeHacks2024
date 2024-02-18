@@ -81,7 +81,7 @@
 
 .placeholder, .spine {
   flex: 1; /* Default flex-grow value */
-  border: 2px solid #ddd; /* Example styling, adjust as needed */
+  /*border: 2px solid #ddd; /* Example styling, adjust as needed */
   border-radius: 10px; /* Gives a slight rounded corner for a modern look */
   padding: 20px;
   min-width: 150px; /* Ensures that each component has at least a minimum width */
@@ -161,32 +161,45 @@
 
 .spine {
   flex: 1; /* Adjust if you want to change the flex-grow behavior */
-  max-width: %; /* Example to make the Spine visualization smaller */
+  /*max-width: 100; /* Example to make the Spine visualization smaller */
   height: auto; /* Maintain aspect ratio */
   margin: 0 auto; /* Center the visualization in the placeholder */
   display: flex;
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
   border: 2px solid #ddd;
-  border-radius: 10px;
   padding: 20px;
   text-align: center;
 }
-
 
 
 .placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #ddd;
-  border-radius: 10px;
   padding: 20px;
-  min-width: 150px; /* Adjust based on your needs */
-  min-height: 100px; /* Adjust based on your needs */
+  max-width: 250px; /* Adjust based on your needs */
+  max-height: 300px; /* Adjust based on your needs */
   text-align: center;
 }
 
+
+.horizontal-section {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.column {
+  flex: 1;
+  margin: 0 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.placeholder {
+  padding: 20px;
+}
 
 
 @keyframes spin {

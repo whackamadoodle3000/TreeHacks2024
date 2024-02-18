@@ -18,8 +18,7 @@
 // THE SOFTWARE.
 
 import '../App.css';
-import PlaceholderComponent from './PlaceholderComponent';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Spine from "./Spine";
 // import ApexChart from "./Chart"
 import { LineChart, Line } from 'recharts';
@@ -28,7 +27,7 @@ function Main() {
 
     const postureDataRef = useRef([])
     const spinePointRef = useRef(0)
-    
+
     const updateData = async () => {
         console.log("Fetching");
         await fetch("http://127.0.0.1:5000/get_pose_data")
@@ -72,30 +71,43 @@ function Main() {
         };
     }, []);
 
-    return (
-        <div className="Posture Analysis Platform">
-            <header className="main-header">
-                <div className='main-title'>
-                    <h1 className='title'>CHAIR</h1>
-                </div>
-                <div className="main-content">
-                    <div className="spine">
-                        <Spine spinePoint={spinePointRef} />
-                    </div>
-                    <img src={`${image}?${new Date().getTime()}`} />
-                    {/* <PlaceholderComponent content="Dynamic Content 1" /> */}
-                    <PlaceholderComponent content="Dynamic Content 2" />
-                </div>
-
-                
-
-                <LineChart width={400} height={400} data={postureDataRef.current}>
-                    <Line type="monotone" dataKey="back_align" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" />
-                    <Line type="monotone" dataKey="neck_align" stroke="#d884d8" />
-                </LineChart>
-            </header>
+    const Placeholder = ({ title }) => (
+        <div className="placeholder">
+            <h2>{title}</h2>
+            <p>Placeholder content for {title}</p>
         </div>
     );
-    }
-    export default Main;
+
+    return (
+
+        <div className="App">
+            <section className="horizontal-section">
+                <div className="column">
+                    <div className="placeholder">
+                        <Spine spinePoint={spinePointRef.current} style={{ width: '33%', height: '33%' }} />
+                    </div>
+                </div>
+                <div className="column">
+                    <Placeholder title="Section 1, Column 2" />
+                </div>
+            </section>
+
+            <section className="horizontal-section">
+                <div className="column">
+                    <div className="placeholder">
+                        <img src={`${image}?${new Date().getTime()}`} alt="Skeleton" />
+                    </div>
+                    <div className="placeholder"></div>
+                    <LineChart width={250} height={300} data={postureDataRef.current}>
+                        <Line type="monotone" dataKey="back_align" stroke="#8884d8" dot={false} />
+                        <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" dot={false} />
+                        <Line type="monotone" dataKey="neck_align" stroke="#d884d8" dot={false} />
+                    </LineChart>
+                </div>
+            </section >
+        </div >
+    );
+
+}
+
+export default Main;
