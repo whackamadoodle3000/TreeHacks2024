@@ -1,3 +1,11 @@
+:root {
+  --dark-purple: #380356;
+  --purple: #6b0078;
+  --light-purple: #93009c;
+  --magenta: #b000b2;
+  --lavender: #c7b4ff;
+}
+
 .App {
   margin: auto;
   text-align: center;
@@ -13,36 +21,15 @@
   text-align: center;
 }
 
-.title {
-  font-size: 4rem;
-  color: white;
-  text-transform: none;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adjust shadow for darker background */
-}
-
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .landing-header {
-  background-color: #282c34;
+  background-color: black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--lavender);
 }
 
 .oval {
@@ -58,7 +45,6 @@
   text-align: center;
   padding: 20px;
 }
-
 
 .main-header {
   background-color: #282c34;
@@ -78,7 +64,6 @@
   flex-direction: row;
 }
 
-
 .placeholder, .spine {
   flex: 1; /* Default flex-grow value */
   border: 2px solid #ddd; /* Example styling, adjust as needed */
@@ -88,14 +73,24 @@
   text-align: center;
 }
 
+.landing-title {
+  text-align: center;
+  margin-left: 40px;
+}
 
-.App-link {
-  color: #61dafb;
+.landing-chr {
+  animation: focus 3s;
 }
 
 .title {
-  margin: 0;
-  font-size: 100px;
+  text-align: center;
+  align-items: center;
+  color:white;
+  letter-spacing: 40px;
+  margin: 0px;
+  font-size: 150px;
+  display: inline-block;
+  /* filter: blur(3px); */
 }
 
 .caption {
@@ -106,8 +101,10 @@
 .background-chair {
   left: 40vw;
   top: 20vh;
+  width: auto;
+  height: 400px;
   filter: blur(10px);
-  position: fixed;
+  position: absolute;
 
   animation: spin infinite 15s;
   /* animation-timing-function: ease-in-out; */
@@ -119,25 +116,9 @@
   text-align: left;
 }
 
-.main-title {
-  margin: 10px;
-  text-align: center; /* Center the title for a modern look */
-}
-
-.title {
-  margin: 0;
-  font-size: 4rem; /* Use responsive units */
-  color: #61dafb; /* A fresh, modern color */
-  text-transform: uppercase; /* Modern typography often uses uppercase for titles */
-  letter-spacing: 0.1em; /* Adding some letter spacing */
-  font-weight: 700; /* Bold font weight */
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* Soft shadow for depth */
-}
-
-
 
 .main-header {
-  padding: 2rem 0; /* More vertical padding for a spacious look */
+  z-index: 10;
 }
 
 .spine > svg, .spine > canvas {
@@ -161,7 +142,7 @@
 
 .spine {
   flex: 1; /* Adjust if you want to change the flex-grow behavior */
-  max-width: %; /* Example to make the Spine visualization smaller */
+  max-width: 100%; /* Example to make the Spine visualization smaller */
   height: auto; /* Maintain aspect ratio */
   margin: 0 auto; /* Center the visualization in the placeholder */
   display: flex;
@@ -188,6 +169,79 @@
 }
 
 
+.gradient {
+  /* Fallback: Set a background color. */
+  background-color: red;
+  
+  /* Create the gradient. */
+  background-image: linear-gradient(45deg, purple, blue);
+  
+  /* Set the background size and repeat properties. */
+  /* background-size: 400% 400%; */
+  background-size: 400%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+
+  animation: swirl 3s infinite;
+}
+
+.button {
+  size: 100px;
+  align-items: center;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 1.2rem;
+  font-weight: 700;
+  justify-content: center;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s,-webkit-box-shadow .2s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  width: 100px;
+}
+
+.button-text {
+  font-size: 40px;
+  text-decoration: none;
+  color: black
+}
+
+@keyframes focus {
+  0% {
+    filter: blur(10px);
+  }
+  100% {
+    filter: blur(0px);
+  }
+}
+
+@keyframes swirl {
+  0% {
+      background-position: 25% 0%;
+  }
+  50% {
+      background-position: 75% 0%;
+  }
+  100% {
+      background-position: 25% 0%;
+  }
+}
 
 @keyframes spin {
   from {
