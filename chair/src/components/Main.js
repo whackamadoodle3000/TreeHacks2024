@@ -1,22 +1,23 @@
 import '../App.css';
 import PlaceholderComponent from './PlaceholderComponent';
-import { Chart } from "react-google-charts";
+import { useState, useEffect, useRef } from 'react';
 import Spine from "./Spine";
 // import ApexChart from "./Chart"
-import { useState, useEffect } from 'react';
+import { LineChart, Line } from 'recharts';
+import image from '../skeleton.jpg' // relative path to image
 
 function Main() {
 
-    const [postureData, setPostureData] = useState([]);
-    const [spinePoint, setSpinePoint] = useState([]);
+    const postureDataRef = useRef([])
+    const spinePointRef = useRef(0)
     
     const updateData = async () => {
         console.log("Fetching");
         await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data[0])
-                console.log (setPostureData(data))
+                postureDataRef.current = data
+                console.log("scores " + postureDataRef.current)
                 // const postureData = JSON.parse(data);
                 // console.log(postureData)
             })
@@ -29,7 +30,7 @@ function Main() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
-                                setSpinePoint(data); // Correctly set spine data here
+                spinePointRef.current = data // Correctly set spine data here
 
 
                 // setPostureData(data)
@@ -67,7 +68,7 @@ function Main() {
                 </div>
                 <div className="main-content">
                     <div className="spine">
-                        <Spine spinePoint={spinePoint} />
+                        <Spine spinePoint={spinePointRef} />
                     </div>
                     <PlaceholderComponent content="Dynamic Content 1" />
                     <PlaceholderComponent content="Dynamic Content 2" />
@@ -77,7 +78,8 @@ function Main() {
                 
                 <LineChart width={400} height={400} data={postureDataRef.current}>
                     <Line type="monotone" dataKey="back_align" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="shoulder_align" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" />
+                    <Line type="monotone" dataKey="neck_align" stroke="#d884d8" />
                 </LineChart>
             </header>
         </div>
