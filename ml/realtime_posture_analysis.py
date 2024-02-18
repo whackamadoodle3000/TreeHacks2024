@@ -1,15 +1,17 @@
 import os 
 
 # import all relevant libraries
-os.system('pip install "opencv-python-headless<4.3"')
+"""os.system('pip install "opencv-python-headless<4.3"')
 os.system("pip install opencv-python")
 os.system("pip install mediapipe")
 os.system("pip install tensorflow")
 os.system("pip install tensorflow-hub")
-os.system("pip install matplotlib")
+os.system("pip install matplotlib")"""
+os.system("pip install openai==0.28")
 
+import openai
+openai.api_key = os.getenv('OPENAI_API_KEY')
 import cv2
-import imageio
 import os
 import json
 import tensorflow as tf
@@ -18,9 +20,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from IPython.display import HTML, display
+import time
 
 # Posture Regression Scoring
 def calculate_distance(point1, point2):
@@ -137,6 +137,13 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512, MAX_FRAMES=1000):
         return
 
     print("Starting real-time inference...")
+    
+    last_call_time = time.time()    
+    
+    # Initially clear the posture_scores.json file
+    with open('posture_scores.json', 'w') as file:
+        file.write('[')  # Start of JSON array
+    
     with open('posture_scores.json', 'w') as file:
         while True:
             ret, frame = cap.read()
@@ -173,17 +180,15 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512, MAX_FRAMES=1000):
                 cv2.COLOR_BGR2RGB # OpenCV processes BGR images instead of RGB
             )
             
-            # REAL-TIME OUTPUTS
+            ######### REAL-TIME OUTPUTS ###########
             
-            # skeleton frames overlayed on webcame output
-            # Save the processed frame to a temporary file first
-            temp_filename = 'skeleton_temp.jpg'
+            # skeleton frames updated on skeleton.jpg photo fifle
+            temp_filename = 'ml_outputs/skeleton_temp.jpg'
             frame_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convert to RGB
             cv2.imwrite(temp_filename, cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR))  # Save to temp file
+            os.rename(temp_filename, 'ml_outputs/skeleton.jpg')  # Rename the temporary file to 'skeleton.jpg' once the image is fully written
             
-            os.rename(temp_filename, 'skeleton.jpg')  # Rename the temporary file to 'skeleton.jpg' once the image is fully written
-            
-            # posture scores printed to console
+            # posture scores saved to posture_scores.json file 
             keypoints_yx = keypoints[0, :, :2] # Select the first batch of keypoints and then take only the (y, x) coordinates, discarding the confidence scores
             keypoints_processed = keypoints_yx.flatten().reshape(1, -1) # Flatten the array to a shape of (1, 34)
             
@@ -195,6 +200,25 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512, MAX_FRAMES=1000):
             scores = {'back_align': float(score_back), 'shoulder_align': float(score_shoulder), 'neck_align': float(score_neck_head)}
             file.write(json.dumps(scores) + '\n')
             
+            # Write GPT diagnoses to the posture_recommendations.txt file every minute
+            current_time = time.time()
+            if current_time - last_call_time >= 60:
+                # prompt is all the posture scores
+                try:
+                    with open('ml_outputs/posture_scores.json', 'r') as json_file:
+                        json_contents = json_file.read()
+                        prompt = json_contents.strip()
+                except Exception as e:
+                    print(f"Error reading posture_scores.json: {e}")
+                    prompt = "[]"  # Use an empty JSON arr if there's an error
+                
+                # Call the GPT function for posture analysis                
+                gpt_response = ask_posture_analysis_expert(prompt)
+
+                # Process the GPT response (for example, logging, displaying, or saving it)
+                with open('ml_outputs/posture_recommendations.txt', 'w') as rec_file:
+                    rec_file.write(gpt_response + '\n')
+                last_call_time = current_time  # Update the last call time
             
             if cv2.waitKey(1) & 0xFF == ord('q'):  # Press 'q' to exit
                 break
@@ -202,6 +226,22 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512, MAX_FRAMES=1000):
     cap.release()
     cv2.destroyAllWindows()
 
+def ask_posture_analysis_expert(posture_score_data):
+    try:
+        response = openai.Completion.create(
+            model="Posture Analysis Expert", # custom GPT's exact name
+            prompt=posture_score_data,
+            temperature=0.8, # Adjust based on how deterministic you want the output to be
+            max_tokens=150, # Adjust according to how long you expect the response to be
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        return response.choices[0].text.strip()
+    except Exception as e:
+        return str(e)
+    
+    
 if __name__ == "__main__":
     # MAKE SURE YOUR KERNEKL IS Python 3.11.5 when runnning the script
     # Train regression model on real data points from yoga_train_data.csv
@@ -279,5 +319,5 @@ if __name__ == "__main__":
         (14, 16): (173, 216, 230)
     }
     
-    # real-time skeleton + posture scoring inference
+    # real-time skeleton + posture scoring inference + gpt diagnosis
     process_webcam_input(movenet)
