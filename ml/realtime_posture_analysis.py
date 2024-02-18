@@ -22,6 +22,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 import time
+from PIL import Image
 from collections import deque
 # from openai import OpenAI
 # client = OpenAI()
@@ -245,7 +246,7 @@ def ask_posture_analysis_expert(posture_score_data):
     except:
         pass
     posture_score_data += """Posture Analysis expert:
-You are a doctor speaking to a patient about their posture.
+You are a funny doctor speaking to a patient about their posture with a positive spin.
 
 You will be provided with a jsonl file of back, neck, and shoulder posture scores showing the patient's historical posture scores. 0 indicates optimal posture, and 1 is very poor posture. Write a short analyses of the patient's overall posture habits, and make health recommendations/suggestions if necessary.
 Length of the full analysis should not exceed 5 sentences. Use consistent tense, as if you were speaking directly to the patient. Do not include any numbers in your analysis, as your analysis is purely qualitative. When speaking about posture, use words such as 'straight' or 'crooked'. For the shoulders, you may use the word 'lopsided'."""
@@ -314,27 +315,30 @@ if __name__ == "__main__":
     model = hub.load("https://tfhub.dev/google/movenet/multipose/lightning/1")
     movenet = model.signatures["serving_default"]
 
+    pink = (200, 77, 143)
+    majestic_purple = (75, 0, 130)
+
     WIDTH = 512
     HEIGHT = 512
     EDGE_COLORS = {
-        (0, 1): (144, 238, 144),
-        (0, 2): (173, 216, 230),
-        (1, 3): (144, 238, 144),
-        (2, 4): (173, 216, 230),
-        (0, 5): (144, 238, 144),
-        (0, 6): (173, 216, 230),
-        (5, 7): (144, 238, 144),
-        (7, 9): (173, 216, 230),
-        (6, 8): (144, 238, 144),
-        (8, 10): (173, 216, 230),
-        (5, 6): (144, 238, 144),
-        (5, 11): (173, 216, 230),
-        (6, 12): (144, 238, 144),
-        (11, 12): (173, 216, 230),
-        (11, 13): (144, 238, 144),
-        (13, 15): (173, 216, 230),
-        (12, 14): (144, 238, 144),
-        (14, 16): (173, 216, 230)
+        (0, 1): pink,
+        (0, 2): pink,
+        (1, 3): pink,
+        (2, 4): pink,
+        (0, 5): majestic_purple,
+        (0, 6): majestic_purple,
+        (5, 7): pink,
+        (7, 9): pink,
+        (6, 8): pink,
+        (8, 10): pink,
+        (5, 6): majestic_purple,
+        (5, 11): pink,
+        (6, 12): pink,
+        (11, 12): majestic_purple,
+        (11, 13): pink,
+        (13, 15): majestic_purple,
+        (12, 14): pink,
+        (14, 16): pink
     }
     
     # real-time skeleton + posture scoring inference + gpt diagnosis

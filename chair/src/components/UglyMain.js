@@ -2,12 +2,18 @@ import '../App.css';
 import { useEffect, useRef } from 'react';
 import Spine from "./Spine";
 import { LineChart, XAxis, YAxis, Line, Label } from 'recharts';
+import { VictoryChart, VictoryLabel, VictoryAxis, VictoryLine } from 'victory';
 import image from '../skeleton.jpg'
 
 function Main() {
-
     const postureDataRef = useRef([])
     const spinePointRef = useRef(0)
+
+    const data = [
+        { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
+        { name: 'Page B', uv: 800, pv: 3600, amt: 4800 },
+        { name: 'Page C', uv: 5600, pv: 1080, amt: 5600 },
+    ]; // TODO: REMOVE
 
     const updateData = async () => {
         console.log("Fetching");
@@ -84,17 +90,11 @@ function Main() {
                         <img src={`${image}?${new Date().getTime()}`} alt="Skeleton" />
                     </div>
                     <div className="placeholder"></div>
-                    <LineChart width={250} height={300} data={postureDataRef}>
-                        <XAxis dataKey="Time">
-                            <Label value="Time" position="insideBottom" />
-                        </XAxis>
-                        <YAxis dataKey="Posture Score">
-                            <Label value="Posture Score" position="insideLeft" angle={-90} />
-                        </YAxis>
-                        <Line type="monotone" dataKey="back_align" stroke="#8884d8" dot={false} />
-                        <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" dot={false} />
-                        <Line type="monotone" dataKey="neck_align" stroke="#d884d8" dot={false} />
-                    </LineChart>
+                    <VictoryChart width={400} height={400}>
+                        <VictoryLabel x={200} y={30} text="Posture Scoring" textAnchor="middle" />
+                        <VictoryLine data={postureDataRef.current} x="name" y="shoulder_align" style={{ data: { stroke: "#c84d8f" } }} />
+                        <VictoryLine data={postureDataRef.current} x="name" y="back_align" style={{ data: { stroke: "#4b0082" } }} />
+                    </VictoryChart>
                 </div>
             </section >
         </div >

@@ -1,5 +1,5 @@
 import '../App.css';
-import { LineChart, Line, XAxis, YAxis, Label } from 'recharts';
+import { VictoryChart, VictoryLabel, VictoryAxis, VictoryLine, VictoryLegend } from 'victory';
 import Spine from "./Spine";
 import { useState, useEffect, useRef } from 'react';
 import image from '../skeleton.jpg';
@@ -100,18 +100,42 @@ function Main() {
                     <img src={`${image}?${new Date().getTime()}`} alt="Skeleton" />
                 </div>
 
+                {/* Add the X Axis with a title */}
                 <div className="spine-wrapper">
-                    <LineChart width={250} height={300} data={postureDataRef.current}>
-                        <XAxis dataKey="Time">
-                            <Label value="Time" position="insideBottom" />
-                        </XAxis>
-                        <YAxis dataKey="Posture Score">
-                            <Label value="Posture Score" position="insideLeft" angle={-90} />
-                        </YAxis>
-                        <Line type="monotone" dataKey="back_align" stroke="#8884d8" dot={false} />
-                        <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" dot={false} />
-                        <Line type="monotone" dataKey="neck_align" stroke="#d884d8" dot={false} />
-                    </LineChart>
+                    <VictoryChart width={400} height={400}>
+                        <VictoryLabel x={200} y={30} text="Posture Scoring" textAnchor="middle" />
+                        <VictoryAxis
+                            label="Time (s)"
+                            style={{
+                                axisLabel: { padding: 30 } // Adjust the padding as needed
+                            }}
+                        />
+
+                        {/* Add the Y Axis with a title */}
+                        <VictoryAxis
+                            dependentAxis
+                            label="Alignment Score"
+                            style={{
+                                axisLabel: { padding: 40 } // Adjust the padding as needed
+                            }}
+                        />
+
+                        {/* Add the VictoryLegend component */}
+                        <VictoryLegend x={400} y={50}
+                            title="Legend"
+                            centerTitle
+                            orientation="horizontal"
+                            gutter={20}
+                            style={{ border: { stroke: "black" }, title: { fontSize: 10 } }}
+                            data={[
+                                { name: "Shoulder", symbol: { fill: "#c84d8f" } },
+                                { name: "Back", symbol: { fill: "#4b0082" } }
+                            ]}
+                        />
+
+                        <VictoryLine data={postureDataRef.current} x="name" y="shoulder_align" style={{ data: { stroke: "#c84d8f" } }} />
+                        <VictoryLine data={postureDataRef.current} x="name" y="back_align" style={{ data: { stroke: "#4b0082" } }} />
+                    </VictoryChart>
                 </div>
             </div >
         </div >
