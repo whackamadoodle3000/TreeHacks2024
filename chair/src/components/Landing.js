@@ -26,7 +26,7 @@ function Landing() {
     return (
       <div className="App">
   
-        {/* <img className='background-chair' src={chair}/> */}
+        <img className='background-chair' src={chair}/>
         {init && <Particles options={particlesOptions}/>}
         <header className="landing-header">
           <div className='landing-title'>

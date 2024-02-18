@@ -254,16 +254,26 @@ body {
 }
 
 .background-chair {
-  left: 40vw;
+  /* left: 40vw;
   top: 20vh;
   width: auto;
   height: 400px;
   filter: blur(10px);
   position: absolute;
 
+  
+
   animation: spin infinite 15s;
-  /* animation-timing-function: ease-in-out; */
-  animation-timing-function: linear;
+  /* animation-timing-function: ease-in-out; 
+  animation-timing-function: linear; */
+
+  left: 620px;
+  top: 285px;
+  width: auto;
+  height: 160px;
+  position: absolute;
+
+  animation: clarity infinite 7s;
 }
 
 .main-title {
@@ -378,10 +388,10 @@ body {
 
 @keyframes focus {
   0% {
-    filter: blur(50px);
+    filter: blur(70px);
   }
   10% {
-    filter: blur(40px);
+    filter: blur(60px);
   }
   20% {
     filter: blur(0px);
@@ -390,10 +400,31 @@ body {
     filter: blur(0px);
   }
   90% {
-    filter: blur(40px);
+    filter: blur(60px);
   }
   100% {
-    filter: blur(50px);
+    filter: blur(70px);
+  }
+}
+
+@keyframes clarity {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  20% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

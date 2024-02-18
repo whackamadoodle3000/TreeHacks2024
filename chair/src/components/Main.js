@@ -6,6 +6,7 @@ import image from '../skeleton.jpg' // relative path to image
 import { Grid, Item } from '@mui/material'
 import { useState, useEffect, useRef } from 'react';
 import { FaStopwatch } from 'react-icons/fa'
+import {Link} from 'react-router-dom';
 
 function Main() {
 
@@ -92,9 +93,13 @@ function Main() {
             <header className="main-header">
                 <Grid container spacing={2} className='grid'>
                     <Grid item xs={12} >
-                        <h1 className='main-title'>CH</h1>
-                        <h1 className='main-title gradient'>AI</h1>
-                        <h1 className='main-title'>R</h1>
+                        <Link to="/">
+                            <div>
+                                <h1 className='main-title'>CH</h1>
+                                <h1 className='main-title gradient'>AI</h1>
+                                <h1 className='main-title'>R</h1>
+                            </div>
+                        </Link>
                     </Grid>
                     <Grid item xs={6} className='grid-item victory-chart'>
                         <div className='grid-content'>
