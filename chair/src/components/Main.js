@@ -2,24 +2,24 @@ import '../App.css';
 import PlaceholderComponent from './PlaceholderComponent';
 import { Chart } from "react-google-charts";
 import Spine from "./Spine";
-// import ApexChart from "./Chart"
-import { useState, useEffect, useRef} from 'react';
+import { useState, useEffect, useRef } from 'react';
+import image from '../skeleton.jpg' // relative path to image 
+import { Grid } from '@mui/material'
 
-function Main() {
+export default function Main() {    
 
-    const [postureData, setPostureData] = useState([]);
-    const [spinePoint, setSpinePoint] = useState([]);
-    const spineRef = useRef(null); // Create a ref
-    
+    // const [postureData, setPostureData] = useState([]);
+    const postureDataRef = useRef([])
+    const spinePointRef = useRef(0)
+
     const updateData = async () => {
         console.log("Fetching");
         await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data[0])
-                console.log (setPostureData(data))
-                // const postureData = JSON.parse(data);
-                // console.log(postureData)
+                postureDataRef.current = data
+
+                console.log("scores " + postureDataRef.current)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
@@ -29,19 +29,15 @@ function Main() {
         await fetch("http://127.0.0.1:5000/get_spine_data")
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
-                                setSpinePoint(data); // Correctly set spine data here
+                spinePointRef.current = data
 
+                console.log("spinePoint " + spinePointRef.current)
 
-                // setPostureData(data)
-                // const postureData = JSON.parse(data);
-                // console.log(postureData)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
                 console.log(err)
             });
-            // setTimeout(updateData, 1000);
     };
 
     useEffect(() => {
@@ -72,7 +68,7 @@ function Main() {
     <div className="main-content">
     <PlaceholderComponent>
   <div className="spine-wrapper">
-    <Spine spinePoint={spinePoint} />
+    <Spine spinePoint={spinePointRef} />
   </div>
 </PlaceholderComponent>
 
@@ -84,5 +80,3 @@ function Main() {
 
     );
 }
-
-export default Main;
