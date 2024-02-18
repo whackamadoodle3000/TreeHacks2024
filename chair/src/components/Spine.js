@@ -10,6 +10,7 @@ function Spine(props) {
     let i = 0;
 
     let spinePoint = props.spinePoint;
+    console.log ("spine point")
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x8FBCD4);
