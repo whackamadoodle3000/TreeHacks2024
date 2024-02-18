@@ -1,28 +1,9 @@
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
 import '../App.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef} from 'react';
 import Spine from "./Spine";
-// import ApexChart from "./Chart"
-import { LineChart, Line } from 'recharts';
-import image from '../skeleton.jpg' // relative path to image
+import {LineChart, Line} from 'recharts';
+import image from '../skeleton.png';
+
 function Main() {
 
     const postureDataRef = useRef([])
@@ -33,9 +14,12 @@ function Main() {
         await fetch("http://127.0.0.1:5000/get_pose_data")
             .then((response) => response.json())
             .then((data) => {
+                // console.log(data[0])
                 postureDataRef.current = data
-
+                // console.log (setPostureData(data))
                 console.log("scores " + postureDataRef.current)
+                // const postureData = JSON.parse(data);
+                // console.log(postureData)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
@@ -46,16 +30,18 @@ function Main() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
-                spinePointRef.current = data // Correctly set spine data here
-
+                spinePointRef.current = data
                 console.log("spinePoint " + spinePointRef.current)
 
+                // setPostureData(data)
+                // const postureData = JSON.parse(data);
+                // console.log(postureData)
             })
             .catch((err) => {
                 // setWeatherType("ERROR");
                 console.log(err)
             });
-        // setTimeout(updateData, 1000);
+            // setTimeout(updateData, 1000);
     };
 
     useEffect(() => {
