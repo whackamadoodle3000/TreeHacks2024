@@ -64,7 +64,18 @@ function Main() {
             });
         //setTimeout(updateData,1000);
     };
+    useEffect(() => {
+        //Fetchdatainitially
+        updateData();
 
+        //Fetchdataeverysecond
+        const intervalId = setInterval(updateData, 1000);
+
+        //Cleanupfunction
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
   return (
     <div className="App">
         <header className="main-header">
@@ -130,8 +141,8 @@ function Main() {
                 <Grid item xs={6} className='grid-item'>
                     <div className='grid-content'>
                         <p className='caption'>Explore how posture affects overall health</p>
-                        {!recievedSuggestions && <FaStopwatch className='timer'/>}
-                        {!recievedSuggestions && <p className='gpt-content'></p>}
+                        {gptRecRef==="" && <FaStopwatch className='timer'/>}
+                        {!gptRecRef==="" && <p className='gpt-content'></p>}
                     </div>
                 </Grid>
                 <Grid item xs={6} className='grid-item'>
