@@ -15,6 +15,13 @@ def read_jsonl(filename):
             data.append(json_data)
     return data
 
+@app.route('/get_gpt_rec', methods=['GET'])
+# @cross_origin(supports_credentials=True)
+def gpt_rec():
+    # Load data from JSON file
+    with open('../ml/ml_outputs/posture_recommendations.txt', 'r') as file:
+        return file.read()
+
 @app.route('/get_pose_data', methods=['GET'])
 # @cross_origin(supports_credentials=True)
 def get_pose_output_data():

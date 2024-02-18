@@ -6,6 +6,8 @@ import pickle
 import numpy as np
 from tensorflow.keras.models import load_model
 import warnings
+import simpleaudio as sa
+
 
 warnings.filterwarnings("ignore")
 
@@ -22,6 +24,11 @@ def write_csv(filename, timestamp, cervical_pressure, thoracic_pressure, lumbar_
 def create_frontend_data(goodness,data):
     data = data[0]
     if goodness < 0.3:
+        # Play the WAV file
+        play_obj = wave_obj.play()
+
+        # Wait until the file is done playing
+        play_obj.wait_done()
         return data.index(max(data))
     else:
         return -1
@@ -33,6 +40,8 @@ def create_frontend_data(goodness,data):
 serial_port = '/dev/tty.usbmodem1302'  # Change this to your Arduino's COM port
 baud_rate = 9600  # Make sure this matches your Arduino's baud rate
 loaded_model = load_model("posture_model.h5")
+wave_obj = sa.WaveObject.from_wave_file("l.wav")
+
 with open("scaler.pkl", "rb") as file:
     scaler = pickle.load(file)
 

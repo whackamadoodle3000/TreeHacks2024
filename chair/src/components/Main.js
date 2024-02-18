@@ -28,6 +28,7 @@ function Main() {
 
     const postureDataRef = useRef([])
     const spinePointRef = useRef(0)
+    const gptRecRef = useRef("")
     
     const updateData = async () => {
         console.log("Fetching");
@@ -50,6 +51,20 @@ function Main() {
                 spinePointRef.current = data // Correctly set spine data here
 
                 console.log("spinePoint " + spinePointRef.current)
+
+            })
+            .catch((err) => {
+                // setWeatherType("ERROR");
+                console.log(err)
+            });
+
+        await fetch("http://127.0.0.1:5000/get_gpt_rec")
+        .then((response) => response.text())
+            .then((data) => {
+                console.log(data)
+                gptRecRef.current = data // Correctly set spine data here
+
+                console.log("gpt " + gptRecRef.current)
 
             })
             .catch((err) => {

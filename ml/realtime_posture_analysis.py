@@ -10,6 +10,7 @@ os.system("pip install matplotlib")"""
 os.system("pip install openai==0.28")
 
 import openai
+import random
 openai.api_key = os.getenv('OPENAI_API_KEY')
 import cv2
 import os
@@ -22,6 +23,8 @@ from sklearn.linear_model import LinearRegression
 import pandas as pd
 import time
 from collections import deque
+# from openai import OpenAI
+# client = OpenAI()
 
 # Posture Regression Scoring
 def calculate_distance(point1, point2):
@@ -211,7 +214,7 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
             
             # Write GPT diagnoses to the posture_recommendations.txt file every minute
             current_time = time.time()
-            if current_time - last_call_time >= 60:
+            if current_time - last_call_time >= 30:
                 # prompt is all the posture scores
                 try:
                     with open('ml_outputs/posture_scores.json', 'r') as json_file:
@@ -221,7 +224,8 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
                     print(f"Error reading posture_scores.json: {e}")
                     prompt = "[]"  # Use an empty JSON arr if there's an error
                 
-                # Call the GPT function for posture analysis                
+                # Call the GPT function for posture analysis
+
                 gpt_response = ask_posture_analysis_expert(prompt)
 
                 # Process the GPT response (for example, logging, displaying, or saving it)
@@ -237,14 +241,19 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
 
 def ask_posture_analysis_expert(posture_score_data):
     try:
+        posture_score_data = posture_score_data[-1000:]
+    except:
+        pass
+    posture_score_data += """Posture Analysis expert:
+You are a doctor speaking to a patient about their posture.
+
+You will be provided with a jsonl file of back, neck, and shoulder posture scores showing the patient's historical posture scores. 0 indicates optimal posture, and 1 is very poor posture. Write a short analyses of the patient's overall posture habits, and make health recommendations/suggestions if necessary.
+Length of the full analysis should not exceed 5 sentences. Use consistent tense, as if you were speaking directly to the patient. Do not include any numbers in your analysis, as your analysis is purely qualitative. When speaking about posture, use words such as 'straight' or 'crooked'. For the shoulders, you may use the word 'lopsided'."""
+    try:
         response = openai.Completion.create(
-            model="Posture Analysis Expert", # custom GPT's exact name
+            engine="gpt-3.5-turbo-instruct", # custom GPT's exact name
             prompt=posture_score_data,
-            temperature=0.8, # Adjust based on how deterministic you want the output to be
             max_tokens=150, # Adjust according to how long you expect the response to be
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
         )
         return response.choices[0].text.strip()
     except Exception as e:
