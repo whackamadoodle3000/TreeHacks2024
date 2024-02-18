@@ -1,9 +1,10 @@
 import '../App.css';
 import { Chart } from "react-google-charts";
-import
+// import
 import Spine from "./Spine";
 // import ApexChart from "./Chart"
 import { useState, useEffect } from 'react';
+import image from '../skeleton.jpg' // relative path to image 
 
 function Main() {
 
@@ -69,6 +70,7 @@ function Main() {
                     <Spine spinePoint={spinePoint} />
                 </div>
 
+                <img src={`${image}?${new Date().getTime()}`} />
                 {/* <Chart
                     chartType="ScatterChart"
                     data={[["Age", "Weight"], [4, 5.5], [8, 12]]}

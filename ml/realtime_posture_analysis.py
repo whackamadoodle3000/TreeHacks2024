@@ -183,10 +183,10 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512, MAX_FRAMES=1000):
             ######### REAL-TIME OUTPUTS ###########
             
             # skeleton frames updated on skeleton.jpg photo fifle
-            temp_filename = 'ml_outputs/skeleton_temp.jpg'
+            temp_filename = '../chair/src/skeleton_temp.jpg'
             frame_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convert to RGB
             cv2.imwrite(temp_filename, cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR))  # Save to temp file
-            os.rename(temp_filename, 'ml_outputs/skeleton.jpg')  # Rename the temporary file to 'skeleton.jpg' once the image is fully written
+            os.rename(temp_filename, '../chair/src/skeleton.jpg')  # Rename the temporary file to 'skeleton.jpg' once the image is fully written
             
             # posture scores saved to posture_scores.json file 
             keypoints_yx = keypoints[0, :, :2] # Select the first batch of keypoints and then take only the (y, x) coordinates, discarding the confidence scores
@@ -245,7 +245,7 @@ def ask_posture_analysis_expert(posture_score_data):
 if __name__ == "__main__":
     # MAKE SURE YOUR KERNEKL IS Python 3.11.5 when runnning the script
     # Train regression model on real data points from yoga_train_data.csv
-    df = pd.read_csv('/Users/jennycai/Desktop/TreeHacks2024/ml/sample_data/yoga_train_data.csv') # TODO: CHANGE TO RELATIVE PATH
+    df = pd.read_csv('sample_data/yoga_train_data.csv') # TODO: CHANGE TO RELATIVE PATH
     cols_of_interest = [
         'nose_x', 'nose_y', 'nose_score',
         'left_eye_x', 'left_eye_y', 'left_eye_score',
