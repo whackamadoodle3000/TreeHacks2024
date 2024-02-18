@@ -22,7 +22,7 @@ def write_csv(filename, timestamp, cervical_pressure, thoracic_pressure, lumbar_
 
 def create_frontend_data(goodness,data):
     data = data[0]
-    if goodness < 0.3:
+    if goodness < 0.12:
         # Play the WAV file
         play_obj = wave_obj.play()
 
