@@ -2,7 +2,7 @@ import '../App.css';
 import { useEffect, useRef} from 'react';
 import Spine from "./Spine";
 import {LineChart, Line} from 'recharts';
-import image from '../skeleton.png';
+import image from '../skeleton.jpg'
 
 function Main() {
 
