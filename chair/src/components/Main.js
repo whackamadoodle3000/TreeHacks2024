@@ -64,19 +64,23 @@ function Main() {
     // updateData();
     console.log("main again")
     return (
-         <div className="App">
-            <header className="main-header">
-                <div className='main-title'>
-                    <h1 className='title'>CHAIR</h1>
+        <div className="App">
+            <div className="container">
+                {/* Title Segment */}
+                <div className="title-segment">
+                    <h1>chAIr</h1>
                 </div>
-                <div className="main-content">
-                    <div className="spine">
-                        <Spine spinePoint={spinePointRef} />
-                    </div>
-                    <PlaceholderComponent content="Dynamic Content 1" />
-                    <PlaceholderComponent content="Dynamic Content 2" />
+
+        
+
+                {/* Additional Content Segment */}
+                <h2>Spine Sensor</h2> 
+                <div className="spine-wrapper">
+                    <Spine spinePoint={spinePointRef} />
                 </div>
-            </header>
+                <p>Explore how posture affects overall health.</p>
+
+            </div>
         </div>
     );
 }
