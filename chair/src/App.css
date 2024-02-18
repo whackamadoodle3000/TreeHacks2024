@@ -63,6 +63,12 @@
   text-align: left;
 }
 
+.spine {
+  width: 100%;
+  height: 100vh; /* Full height of the viewport, adjust as needed */
+}
+
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
