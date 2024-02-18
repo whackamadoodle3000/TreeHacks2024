@@ -15,15 +15,15 @@ export default function Spine(props) {
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0x8FBCD4);
 
-        const w = 200;
-        const h = 400;
+        const w = 300;
+        const h = 300;
 
         camera = new THREE.PerspectiveCamera(100, w / h , 0.1, 1000);
         camera.position.set(0, 27, 40);
             camera.lookAt(new THREE.Vector3(0, 15, 0));
 
         renderer = new THREE.WebGLRenderer({antialias: true});
-        renderer.setSize(w, h, true);
+        renderer.setSize(w, h);
         // document.body.appendChild(renderer.domElement);
         console.log(refContainer.current)
         refContainer.current && refContainer.current.appendChild( renderer.domElement );

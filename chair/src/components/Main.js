@@ -5,11 +5,11 @@ import image from '../skeleton.jpg' // relative path to image
 // import ApexChart from "./Chart"
 import { Grid, Item } from '@mui/material'
 import { useState, useEffect, useRef } from 'react';
+import { FaStopwatch } from 'react-icons/fa'
 
 function Main() {
 
-  const [postureData, setPostureData] = useState([]);
-  const [spinePoint, setSpinePoint] = useState([]);
+  const [recievedSuggestions, setSuggestions] = useState(false)
   const postureDataRef = useRef([])
   const spinePointRef = useRef(0)
 
@@ -20,7 +20,6 @@ function Main() {
       .then((data) => {
         //console.log(data[0])
         postureDataRef.current = data
-        console.log(setPostureData(data))
         console.log("scores" + postureDataRef.current)
         //constpostureData=JSON.parse(data);
         //console.log(postureData)
@@ -77,23 +76,37 @@ function Main() {
                                         <Line type="monotone" dataKey="shoulder_align" stroke="#f884d8" dot={false} />
                                         <Line type="monotone" dataKey="neck_align" stroke="#d884d8" dot={false} />
                         </LineChart>
-                        <p>Explore how posture affects overall health.</p>
+                        <p className='caption'>Posture scores</p>
                     </div>
                 </Grid>
                 <Grid item xs={3} className='grid-item'>
                     <div className='grid-content'>
-                        <img src={`${image}?${new Date().getTime()}`} />
-                        <h2>Skeleton visualization</h2>
+                        <img className='skeleton' src={`${image}?${new Date().getTime()}`} />
+                        <p className='caption'>Skeleton visualization</p>
                     </div>
                 </Grid>
                 <Grid item xs={3} className='grid-item'>
                     <div className='grid-content'>
                         <Spine className='spine' spinePoint={spinePointRef} />
-                        <h2>Spine pressure map</h2>
+                        <p className='caption'>Spine pressure map</p>
                     </div>
                 </Grid>
-                <Grid item xs={12} className='grid-item'>
-
+                <Grid item xs={6} className='grid-item'>
+                    <div className='grid-content'>
+                        <p className='caption'>Explore how posture affects overall health</p>
+                        {!recievedSuggestions && <FaStopwatch className='timer'/>}
+                        {!recievedSuggestions && <p className='gpt-content'></p>}
+                    </div>
+                </Grid>
+                <Grid item xs={6} className='grid-item'>
+                    <div className='grid-content'>
+                        <p className='large-text'> Chair is a data visualization platform built for a smart chair equipped with pressure sensors and a webcam, whichuses a combination of deep learning and custom regression models to analyze and correct improper posture while sitting in a chair.
+                                                <br/><br/>
+                                                We equipped a chair with 4 pressure sensors lining the seat back. Using real-time sensor data, we trained a custom deep learning neural network to detect how crooked the spine was when sitting, and identify the most pressurized areas of the spine. The spine animation to the left is an interactive visualization of the most pressurized segments of the spine, where green indicates low and red indicates high pressure. The site also renders a beep to alert the user of poor posture when detected.
+                                                <br/><br/>
+                                                In the webcam above, we use computer vision techniques to detect and render real-time pose estimations. We overlay the pose estimations on top of the live webcam feed. The line chart to the right displays historical posture scores from the past hour which analyze neck-to-head, back, and shoulder alignment. The higher the score, the better the alignment.</p>
+                        <p className='gptContent'></p>
+                    </div>
                 </Grid>
             </Grid>
             

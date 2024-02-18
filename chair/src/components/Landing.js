@@ -34,7 +34,7 @@ function Landing() {
             <h1 className='title gradient'>AI</h1>
             <h1 className='title landing-chr'>R</h1>
           </div>
-          <p className='caption'>What can your chair do for you?</p>
+          <p>What can your chair do for you?</p>
           <Link to="main"><button className='button'><div className='button-text'>Go</div></button></Link>
         </header>
       </div>

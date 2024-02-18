@@ -106,7 +106,9 @@ h2 {
 }
 
 .spine {
-  margin-left: 40px;
+  margin-left: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 .spine-wrapper {
@@ -168,19 +170,57 @@ body {
   align-items: center;
   justify-content: center;
   text-align: left;
-  padding: 20px
+  padding: 20px;
+  margin: 20px;
 }
 
 .grid-item {
   align-items: center;
   justify-content: center;
   display: flex;
+  /* border-style: solid;
+  border-color: white;
+  border-radius: 10px;
+  border-width: 1px; */
+  object-fit: contain;
+  padding: 20px;
+  height: 400px;
 }
 
 .grid-content {
   display: block;
   align-items: center;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  border-style: solid;
+  border-color: var(--lavender);
+  /* border-radius: 10px;] */
+  border-width: 2px;
+  padding: 15px;
+}
+
+.caption {
+  font-size: 25px;
+  margin: 10px;
+  text-align: left;
+}
+
+.gpt-content {
+  background-color:#121212;
+  text-align: left;
+  margin: 10px;
+}
+
+.timer {
+  font-size: 50px;
+}
+
+.large-text {
+  font-size: 18px;
+  text-align: left;
+  margin: 0px;
 }
 
 .landing-title {
@@ -189,7 +229,7 @@ body {
 }
 
 .landing-chr {
-  animation: focus 3s;
+  animation: focus 7s infinite;
 }
 
 .title {
@@ -259,6 +299,11 @@ body {
   padding: 20px;
 }
 
+.skeleton {
+  width: auto;
+  height: 300px;
+}
+
 .gradient {
   /* Fallback: Set a background color. */
   background-color: red;
@@ -312,12 +357,33 @@ body {
   color: black
 }
 
-@keyframes focus {
+@keyframes emphasis {
   0% {
-    filter: blur(10px);
+    border-color: var(--lavender);
   }
   100% {
+    border-color: var(--magenta);
+  }
+}
+
+@keyframes focus {
+  0% {
+    filter: blur(50px);
+  }
+  10% {
+    filter: blur(40px);
+  }
+  20% {
     filter: blur(0px);
+  }
+  80% {
+    filter: blur(0px);
+  }
+  90% {
+    filter: blur(40px);
+  }
+  100% {
+    filter: blur(50px);
   }
 }
 
