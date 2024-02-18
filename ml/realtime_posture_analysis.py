@@ -144,7 +144,7 @@ def process_webcam_input(movenet, WIDTH=512, HEIGHT=512):
     with open('posture_scores.json', 'w') as file:
         file.write('[')  # Start of JSON array
     
-    with open('posture_scores.json', 'w') as file:
+    with open('ml_outputs/posture_scores.json', 'w') as file:
         while True:
             ret, frame = cap.read()
             if not ret:
