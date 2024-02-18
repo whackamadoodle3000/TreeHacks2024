@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Prociono&display=swap');
+
+
 :root {
   --dark-purple: #380356;
   --purple: #6b0078;
@@ -66,7 +69,6 @@
     margin-top: 0;
   }
 }
-
 
 .segment {
   background-color: #000; /* Modern black background */
@@ -151,7 +153,7 @@ h2 {
 body {
   background-color: #121212; /* Dark theme background for the whole page */
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: monospace, monospace; /*Arial, sans-serif;*/
 }
 
 
@@ -185,6 +187,12 @@ body {
   object-fit: contain;
   padding: 20px;
   height: 400px;
+
+}
+
+.grid-item .victory-chart{
+  margin-top: -500;
+  margin-bottom: -1000;
 }
 
 .grid-content {
