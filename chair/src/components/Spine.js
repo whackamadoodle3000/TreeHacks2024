@@ -15,6 +15,7 @@ export default function Spine(props) {
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0x8FBCD4);
 
+
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 30, 100);
         camera.lookAt(new THREE.Vector3(0, 15, 0));
@@ -32,7 +33,6 @@ export default function Spine(props) {
             const material = new THREE.MeshBasicMaterial({color: color});
             const vertebra = new THREE.Mesh(geometry, material);
             vertebra.position.y = yOffset;
-            vertebra.name = `vertebra-${index}`; // Assign a name based on index for identification
             spineGroup.add(vertebra);
         }
 

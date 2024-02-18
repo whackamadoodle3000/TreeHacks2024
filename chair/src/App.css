@@ -113,13 +113,13 @@
 
 h2 {
   margin-top: 5px; /* Reduce space above "Spine Sensor" text */
-  margin-bottom: 0px; /* Reduce space below "Spine Sensor" text, adjust as needed */
+  margin-bottom: 5px; /* Reduce space below "Spine Sensor" text, adjust as needed */
 }
 
 .spine-wrapper {
   position: relative; /* Needed for absolute positioning of pseudo-elements */
   margin-top: 0;
-  padding:0px;
+  padding:px;
   padding-top: 0; /* Remove top padding if it exists */
   width: 900px;
   height: 450px;
