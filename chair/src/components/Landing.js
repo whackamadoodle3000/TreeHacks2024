@@ -13,7 +13,6 @@ function Landing() {
           <p className='caption'>What can your chair do for you?</p>
           <button><Link to="main">click here</Link></button>
         </header>
-        
       </div>
     );
 }
